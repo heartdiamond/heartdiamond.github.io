@@ -3,353 +3,1647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自动轮播时间轴</title>
+    <title>科技企业解决方案 | 现代企业网站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">	
+    
+    <!-- 添加多语言支持 -->
+    <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.10/i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-i18next@1.2.1/jquery-i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@6.1.3/i18nextBrowserLanguageDetector.min.js"></script>
+    
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #f9f9f9;
+            box-sizing: border-box;
         }
         
-        .content-area {
-            flex: 1;
+        body {
+            font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+            background: #f9fbfd;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .navbar {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            background-color: #fff;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .timeline-container {
-            padding: 40px 20px;
-            background-color: #fff;
-            border-top: 1px solid #eee;
-            position: relative;
-        }
-        
-        .controls {
-            position: absolute;
-            top: 10px;
-            right: 20px;
+        .logo {
             display: flex;
+            align-items: center;
             gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
         }
         
-        .control-btn {
-            background: #4a89dc;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 12px;
+        .logo i {
+            font-size: 2.2rem;
         }
         
-        .control-btn:hover {
-            background: #3a70c2;
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
         
-        .timeline-wrapper {
+        .nav-links a {
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
             position: relative;
-            height: 80px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #2563eb;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* 英雄区域样式 */
+        .hero {
+            padding: 150px 0 100px;
+            background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .hero-text {
+            flex: 1;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-image {
+            flex: 1;
+            animation: fadeInRight 1s ease;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f7ff;
+            transform: translateY(-3px);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 服务部分样式 */
+        .services {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #2563eb, #3b82f6);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            color: #64748b;
             margin-top: 20px;
         }
         
-        .timeline-scale {
-            position: absolute;
-            top: 40px;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background-color: #e0e0e0;
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
         
-        .timeline-ticks {
-            position: absolute;
-            top: 40px;
-            left: 0;
-            right: 0;
-            height: 20px;
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border: 1px solid #e2e8f0;
         }
         
-        .tick {
-            position: absolute;
-            width: 2px;
-            height: 10px;
-            background-color: #999;
-            top: 0;
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
+            border-color: #dbeafe;
         }
         
-        .tick.major {
-            height: 20px;
-            background-color: #333;
-            width: 3px;
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: #2563eb;
+            font-size: 2rem;
         }
         
-        .timeline-labels {
-            position: absolute;
-            top: 60px;
-            left: 0;
-            right: 0;
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1e293b;
         }
         
-        .timeline-label {
-            position: absolute;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #666;
-            white-space: nowrap;
+        .service-card p {
+            color: #64748b;
         }
         
-        .timeline-handle {
+        /* 数据统计部分 */
+        .stats {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* 项目展示部分 */
+        .projects {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background: white;
+            transition: all 0.4s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+        
+        .project-info {
+            padding: 25px;
+        }
+        
+        .project-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        
+        .project-info p {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: #dbeafe;
+            color: #2563eb;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /*关于我们*/
+        .about{
+             padding: 100px 0;
+            background: white;
+        }
+        
+        /* 客户评价部分 */
+        .testimonials {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
             position: absolute;
             top: 20px;
+            right: 30px;
+            font-size: 5rem;
+            color: #dbeafe;
+            font-family: serif;
+            line-height: 1;
+            opacity: 0.5;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            color: #475569;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        /* 联系区域样式 */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+            position: relative;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #1e293b;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #334155;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-info {
+            color: #1e293b;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+        
+        .contact-details {
+            margin-bottom: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #2563eb;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h4 {
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: #475569;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-text a:hover {
+            color: #2563eb;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: #2563eb;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
             left: 0;
+            width: 50px;
+            height: 2px;
+            background: #2563eb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: #3b82f6;
+            padding-left: 5px;
+        }
+        
+        .footer-text {
+            color: #94a3b8;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background: #1d4ed8;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .hero-image {
+                text-align: center;
+            }
+            
+            .hero p {
+                margin: 0 auto 30px;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            /* 移动端导航栏语言切换隐藏 */
+            .navbar .language-icons {
+                display: none;
+            }
+        }
+
+        /* 语言图标样式 - 改进版 */
+        .language-icons {
+            display: flex;
+            gap: 12px;
+            padding: 8px;
+        }
+        
+        .lang-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #f0f4ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .lang-icon:hover, .lang-icon:active {
+            background: #2563eb;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .lang-icon.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* 移动端浮动语言切换按钮 */
+        .language-icons.floating {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            border-radius: 30px;
+            padding: 8px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        @media (min-width: 769px) {
+            .language-icons.floating {
+                display: none;
+            }
+        }
+
+        /* 首页添加轮播图样式 */
+        .swiper {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: white;
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            color: white;
+            background: rgba(255, 255, 255, 0.3);
             width: 40px;
             height: 40px;
-            background-color: #4a89dc;
             border-radius: 50%;
-            transform: translateX(-50%);
-            cursor: grab;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
+            transition: all 0.3s ease;
         }
-        
-        .timeline-value {
-            position: absolute;
-            top: -25px;
+
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+            font-size: 1.2rem;
+        }
+
+        .hero-image {
+            flex: 1;
             width: 100%;
-            text-align: center;
-            font-weight: bold;
-            color: #4a89dc;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
         }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
         }
-        
-        .content-item {
-            display: none;
-            max-width: 600px;
-            padding: 20px;
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        
-        .content-item.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .year-display {
-            font-size: 24px;
-            color: #4a89dc;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        
-        .progress-bar {
-            position: absolute;
-            top: 40px;
-            left: 0;
-            height: 4px;
-            background-color: #4a89dc;
-            width: 0;
-            transition: width 0.3s ease;
+
+        @media (max-width: 768px) {
+            .hero-image {
+                height: 300px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="content-area" id="contentArea">
-        <div class="content-item active" id="content1">
-            <div class="year-display">2000年</div>
-            <h1>互联网泡沫时代</h1>
-            <p>2000年，互联网泡沫达到顶峰，科技公司估值飞涨，纳斯达克指数创下历史新高。</p>
-            <img src="https://via.placeholder.com/400x200?text=2000年互联网泡沫" alt="2000年" style="max-width:100%; margin-top:20px;">
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>TechVision</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" data-i18n="home">首页</a></li>
+                    <li><a href="#services" data-i18n="services">服务</a></li>
+                    <li><a href="#projects" data-i18n="projects">项目</a></li>
+                    <li><a href="#about" data-i18n="about">关于我们</a></li>
+                    <li><a href="#testimonials" data-i18n="testimonials">客户评价</a></li>
+                    <li><a href="#contact" data-i18n="contact">联系我们</a></li>
+                </ul>
+                <div class="language-icons">
+                    <button class="lang-icon active" data-lang="zh-CN" aria-label="简体中文">简</button>
+                    <button class="lang-icon" data-lang="zh-TW" aria-label="繁體中文">繁</button>
+                    <button class="lang-icon" data-lang="en" aria-label="English">EN</button>
+                </div>
+            </nav>
         </div>
-        <div class="content-item" id="content2">
-            <div class="year-display">2005年</div>
-            <h1>Web 2.0崛起</h1>
-            <p>2005年，YouTube成立，社交网络和用户生成内容开始改变互联网格局。</p>
-            <img src="https://via.placeholder.com/400x200?text=2005年Web2.0" alt="2005年" style="max-width:100%; margin-top:20px;">
-        </div>
-        <div class="content-item" id="content3">
-            <div class="year-display">2010年</div>
-            <h1>移动互联网时代</h1>
-            <p>2010年，iPad发布，智能手机普及，移动互联网开始主导数字生活。</p>
-            <img src="https://via.placeholder.com/400x200?text=2010年移动互联网" alt="2010年" style="max-width:100%; margin-top:20px;">
-        </div>
-        <div class="content-item" id="content4">
-            <div class="year-display">2015年</div>
-            <h1>人工智能兴起</h1>
-            <p>2015年，深度学习技术突破，AI开始在图像识别、语音助手等领域崭露头角。</p>
-            <img src="https://via.placeholder.com/400x200?text=2015年人工智能" alt="2015年" style="max-width:100%; margin-top:20px;">
-        </div>
-        <div class="content-item" id="content5">
-            <div class="year-display">2020年</div>
-            <h1>数字化转型加速</h1>
-            <p>2020年，全球疫情促使远程办公、在线教育等数字化应用爆发式增长。</p>
-            <img src="https://via.placeholder.com/400x200?text=2020年数字化转型" alt="2020年" style="max-width:100%; margin-top:20px;">
-        </div>
-    </div>
-    
-    <div class="timeline-container">
-        <div class="controls">
-            <button class="control-btn" id="playBtn">▶ 播放</button>
-            <button class="control-btn" id="pauseBtn">⏸ 暂停</button>
-        </div>
-        <div class="timeline-wrapper">
-            <div class="progress-bar" id="progressBar"></div>
-            <div class="timeline-scale"></div>
-            <div class="timeline-ticks" id="timelineTicks"></div>
-            <div class="timeline-labels" id="timelineLabels"></div>
-            <div class="timeline-handle" id="timelineHandle">
-                <div class="timeline-value" id="timelineValue">2000</div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 data-i18n="heroTitle">创新技术解决方案助力企业数字化转型</h1>
+                    <p data-i18n="heroText">我们提供前沿的科技服务和定制化解决方案，帮助企业提升效率、优化流程并实现业务增长</p>
+                    <div class="hero-btns">
+                        <button class="btn btn-primary" data-i18n="exploreBtn">开始探索</button>
+                        <button class="btn btn-secondary" data-i18n="learnMoreBtn">了解更多</button>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="企业解决方案1">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1622675363311-3e1904dc1885?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="企业解决方案2">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="企业解决方案3">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
+    <!-- 服务部分 -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="servicesTitle">我们的专业服务</h2>
+                <p data-i18n="servicesSubtitle">我们提供全方位的数字解决方案，助力企业在竞争激烈的市场中脱颖而出</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 data-i18n="webDev">网站开发</h3>
+                    <p data-i18n="webDevDesc">定制化网站设计与开发，响应式布局，确保在所有设备上完美呈现</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 data-i18n="mobileApp">移动应用</h3>
+                    <p data-i18n="mobileAppDesc">iOS和Android原生应用开发，提供流畅的用户体验和卓越性能</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 data-i18n="cloudSolution">云解决方案</h3>
+                    <p data-i18n="cloudSolutionDesc">基于云的架构设计、迁移和管理服务，实现灵活扩展和成本优化</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 data-i18n="dataAnalysis">数据分析</h3>
+                    <p data-i18n="dataAnalysisDesc">数据挖掘、分析和可视化，提供有价值的业务洞察和决策支持</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 data-i18n="cyberSecurity">网络安全</h3>
+                    <p data-i18n="cyberSecurityDesc">全面的安全评估、渗透测试和防护策略，保障企业数据和系统安全</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 data-i18n="aiSolution">人工智能</h3>
+                    <p data-i18n="aiSolutionDesc">AI解决方案开发，包括机器学习模型、自然语言处理和智能自动化</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据统计部分 -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>250+</h3>
+                    <p data-i18n="successProjects">成功项目</p>
+                </div>
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p data-i18n="customerSatisfaction">客户满意度</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p data-i18n="professionalTeam">专业团队</p>
+                </div>
+                <div class="stat-item">
+                    <h3>12</h3>
+                    <p data-i18n="industryAwards">行业奖项</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示部分 -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="projectCases">精选项目案例</h2>
+                <p data-i18n="projectSubtitle">探索我们为各行业领先企业打造的成功案例</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="金融科技平台">
+                    </div>
+                    <div class="project-info">
+                        <h3 data-i18n="fintechPlatform">金融科技平台</h3>
+                        <p data-i18n="fintechDesc">为全球金融机构开发的现代化交易和分析平台</p>
+                        <div class="project-tags">
+                            <span class="tag" data-i18n="webApp">Web应用</span>
+                            <span class="tag" data-i18n="fintech">金融科技</span>
+                            <span class="tag" data-i18n="dataAnalysisTag">数据分析</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="电商解决方案">
+                    </div>
+                    <div class="project-info">
+                        <h3 data-i18n="ecommerceSolution">电商解决方案</h3>
+                        <p data-i18n="ecommerceDesc">为零售企业打造的全渠道电子商务平台</p>
+                        <div class="project-tags">
+                            <span class="tag" data-i18n="ecommerce">电子商务</span>
+                            <span class="tag" data-i18n="mobileAppTag">移动应用</span>
+                            <span class="tag" data-i18n="paymentSystem">支付系统</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="医疗健康系统">
+                    </div>
+                    <div class="project-info">
+                        <h3 data-i18n="healthSystem">医疗健康系统</h3>
+                        <p data-i18n="healthDesc">为大型医院集团开发的综合健康管理系统</p>
+                        <div class="project-tags">
+                            <span class="tag" data-i18n="medTech">医疗技术</span>
+                            <span class="tag" data-i18n="cloudPlatform">云平台</span>
+                            <span class="tag" data-i18n="dataSecurity">数据安全</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="aboutUs">关于我们</h2>
+                <p data-i18n="aboutSubtitle">致力于现代生物医药健康领域，行业奠基石。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客户评价部分 -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-i18n="testimonialsTitle">客户评价</h2>
+                <p data-i18n="testimonialsSubtitle">听听我们的客户怎么说</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-content" data-i18n="testimonial1">"TechVision团队为我们的数字化转型提供了卓越的解决方案。他们的专业知识和创新思维帮助我们提升了30%的运营效率，客户满意度显著提高。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="客户">
+                        </div>
+                        <div class="author-info">
+                            <h4 data-i18n="clientName1">张雅雯</h4>
+                            <p data-i18n="clientPosition1">创新科技 CEO</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-content" data-i18n="testimonial2">"与TechVision合作是一次非常愉快的经历。他们开发的移动应用不仅设计精美，而且性能出色，用户反馈极好，帮助我们拓展了新的市场。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="客户">
+                        </div>
+                        <div class="author-info">
+                            <h4 data-i18n="clientName2">李明哲</h4>
+                            <p data-i18n="clientPosition2">智行科技 CTO</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-content" data-i18n="testimonial3">"TechVision的云解决方案帮助我们实现了IT基础设施的现代化，成本降低了40%，同时系统稳定性和安全性得到了显著提升。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="客户">
+                        </div>
+                        <div class="author-info">
+                            <h4 data-i18n="clientName3">陈思颖</h4>
+                            <p data-i18n="clientPosition3">未来集团 IT总监</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3 data-i18n="contactUs">联系我们</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name" data-i18n="nameLabel">姓名</label>
+                            <input type="text" id="name" class="form-control" data-i18n="namePlaceholder" placeholder="请输入您的姓名">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" data-i18n="emailLabel">电子邮箱</label>
+                            <input type="email" id="email" class="form-control" data-i18n="emailPlaceholder" placeholder="请输入您的电子邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" data-i18n="subjectLabel">主题</label>
+                            <input type="text" id="subject" class="form-control" data-i18n="subjectPlaceholder" placeholder="请输入主题">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" data-i18n="messageLabel">留言</label>
+                            <textarea id="message" class="form-control" data-i18n="messagePlaceholder" placeholder="请输入您的留言"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-i18n="sendMessage">发送消息</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3 data-i18n="contactInfo">联系方式</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4 data-i18n="companyAddress">公司地址</h4>
+                                <p data-i18n="addressDetail">北京市海淀区科技园区88号创新大厦15层</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4 data-i18n="phoneNumber">联系电话</h4>
+                                <p>+86 10 8888 7777</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4 data-i18n="email">电子邮箱</h4>
+                                <p><a href="mailto:info@techvision.com">info@techvision.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 data-i18n="aboutUs">关于我们</h4>
+                    <p class="footer-text" data-i18n="footerAbout">TechVision是一家领先的技术解决方案提供商，致力于帮助企业实现数字化转型和创新增长。</p>
+                    <div class="newsletter-form">
+                        <input type="email" data-i18n="emailPlaceholder" placeholder="输入您的邮箱">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="quickLinks">快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home" data-i18n="home">首页</a></li>
+                        <li><a href="#services" data-i18n="services">服务</a></li>
+                        <li><a href="#projects" data-i18n="projects">项目</a></li>
+                        <li><a href="#about" data-i18n="about">关于我们</a></li>
+                        <li><a href="#testimonials" data-i18n="testimonials">客户评价</a></li>
+                        <li><a href="#contact" data-i18n="contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="services">服务项目</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" data-i18n="webDev">网站开发</a></li>
+                        <li><a href="#" data-i18n="mobileApp">移动应用</a></li>
+                        <li><a href="#" data-i18n="cloudSolution">云解决方案</a></li>
+                        <li><a href="#" data-i18n="dataAnalysis">数据分析</a></li>
+                        <li><a href="#" data-i18n="cyberSecurity">网络安全</a></li>
+                        <li><a href="#" data-i18n="aiSolution">人工智能</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="contactUs">联系我们</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> <span data-i18n="addressShort">中国 香港</span></li>
+                        <li><i class="fas fa-phone-alt"></i> +852 8888-8888</li>
+                        <li><i class="fas fa-envelope"></i> info@hthia.com</li>
+                        <li><i class="fas fa-clock"></i> <span data-i18n="workingHours">周一至周五: 9:00 - 18:00</span></li>
+                    </ul>
+                </div>
+            </div>
+<!--
+            <div class="copyright">
+                <p>&copy; 2023 TechVision科技有限公司. <span data-i18n="allRightsReserved">保留所有权利</span> | <span data-i18n="icp">京ICP备12345678号</span></p>
+            </div>
+-->
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
-        const years = [2000, 2005, 2010, 2015, 2020];
-        const handle = document.getElementById('timelineHandle');
-        const timelineValue = document.getElementById('timelineValue');
-        const contentItems = document.querySelectorAll('.content-item');
-        const timelineTicks = document.getElementById('timelineTicks');
-        const timelineLabels = document.getElementById('timelineLabels');
-        const progressBar = document.getElementById('progressBar');
-        const playBtn = document.getElementById('playBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        
-        let currentIndex = 0;
-        let autoPlayInterval;
-        let isPlaying = false;
-        const autoPlaySpeed = 3000; // 3秒切换一次
-        
-        // 初始化时间轴刻度和标签
-        function initTimeline() {
-            const width = document.querySelector('.timeline-wrapper').offsetWidth;
-            
-            years.forEach((year, index) => {
-                // 添加刻度
-                const tick = document.createElement('div');
-                tick.className = index % 2 === 0 ? 'tick major' : 'tick';
-                tick.style.left = `${(index / (years.length - 1)) * 100}%`;
-                timelineTicks.appendChild(tick);
-                
-                // 添加标签
-                const label = document.createElement('div');
-                label.className = 'timeline-label';
-                label.textContent = year;
-                label.style.left = `${(index / (years.length - 1)) * 100}%`;
-                timelineLabels.appendChild(label);
-            });
-            
-            // 设置初始位置
-            updateTimeline(0);
+        // 多语言资源
+        const resources = {
+            'zh-CN': {
+                translation: {
+                    "home": "首页",
+                    "services": "服务",
+                    "projects": "项目",
+                    "about": "关于我们",
+                    "testimonials": "客户评价",
+                    "contact": "联系我们",
+                    "heroTitle": "创新技术解决方案助力企业数字化转型",
+                    "heroText": "我们提供前沿的科技服务和定制化解决方案，帮助企业提升效率、优化流程并实现业务增长",
+                    "exploreBtn": "开始探索",
+                    "learnMoreBtn": "了解更多",
+                    "servicesTitle": "我们的专业服务",
+                    "servicesSubtitle": "我们提供全方位的数字解决方案，助力企业在竞争激烈的市场中脱颖而出",
+                    "webDev": "网站开发",
+                    "webDevDesc": "定制化网站设计与开发，响应式布局，确保在所有设备上完美呈现",
+                    "mobileApp": "移动应用",
+                    "mobileAppDesc": "iOS和Android原生应用开发，提供流畅的用户体验和卓越性能",
+                    "cloudSolution": "云解决方案",
+                    "cloudSolutionDesc": "基于云的架构设计、迁移和管理服务，实现灵活扩展和成本优化",
+                    "dataAnalysis": "数据分析",
+                    "dataAnalysisDesc": "数据挖掘、分析和可视化，提供有价值的业务洞察和决策支持",
+                    "cyberSecurity": "网络安全",
+                    "cyberSecurityDesc": "全面的安全评估、渗透测试和防护策略，保障企业数据和系统安全",
+                    "aiSolution": "人工智能",
+                    "aiSolutionDesc": "AI解决方案开发，包括机器学习模型、自然语言处理和智能自动化",
+                    "successProjects": "成功项目",
+                    "customerSatisfaction": "客户满意度",
+                    "professionalTeam": "专业团队",
+                    "industryAwards": "行业奖项",
+                    "projectCases": "精选项目案例",
+                    "projectSubtitle": "探索我们为各行业领先企业打造的成功案例",
+                    "fintechPlatform": "金融科技平台",
+                    "fintechDesc": "为全球金融机构开发的现代化交易和分析平台",
+                    "webApp": "Web应用",
+                    "fintech": "金融科技",
+                    "dataAnalysisTag": "数据分析",
+                    "ecommerceSolution": "电商解决方案",
+                    "ecommerceDesc": "为零售企业打造的全渠道电子商务平台",
+                    "ecommerce": "电子商务",
+                    "mobileAppTag": "移动应用",
+                    "paymentSystem": "支付系统",
+                    "healthSystem": "医疗健康系统",
+                    "healthDesc": "为大型医院集团开发的综合健康管理系统",
+                    "medTech": "医疗技术",
+                    "cloudPlatform": "云平台",
+                    "dataSecurity": "数据安全",
+                    "aboutUs": "关于我们",
+                    "aboutSubtitle": "致力于现代生物医药健康领域，行业奠基石",
+                    "testimonialsTitle": "客户评价",
+                    "testimonialsSubtitle": "听听我们的客户怎么说",
+                    "testimonial1": "\"TechVision团队为我们的数字化转型提供了卓越的解决方案。他们的专业知识和创新思维帮助我们提升了30%的运营效率，客户满意度显著提高。\"",
+                    "clientName1": "张雅雯",
+                    "clientPosition1": "创新科技 CEO",
+                    "testimonial2": "\"与TechVision合作是一次非常愉快的经历。他们开发的移动应用不仅设计精美，而且性能出色，用户反馈极好，帮助我们拓展了新的市场。\"",
+                    "clientName2": "李明哲",
+                    "clientPosition2": "智行科技 CTO",
+                    "testimonial3": "\"TechVision的云解决方案帮助我们实现了IT基础设施的现代化，成本降低了40%，同时系统稳定性和安全性得到了显著提升。\"",
+                    "clientName3": "陈思颖",
+                    "clientPosition3": "未来集团 IT总监",
+                    "contactUs": "联系我们",
+                    "nameLabel": "姓名",
+                    "namePlaceholder": "请输入您的姓名",
+                    "emailLabel": "电子邮箱",
+                    "emailPlaceholder": "请输入您的电子邮箱",
+                    "subjectLabel": "主题",
+                    "subjectPlaceholder": "请输入主题",
+                    "messageLabel": "留言",
+                    "messagePlaceholder": "请输入您的留言",
+                    "sendMessage": "发送消息",
+                    "contactInfo": "联系方式",
+                    "companyAddress": "公司地址",
+                    "addressDetail": "中国 香港",
+                    "phoneNumber": "联系电话",
+                    "email": "电子邮箱",
+                    "quickLinks": "快速链接",
+                    "footerAbout": "TechVision是一家领先的技术解决方案提供商，致力于帮助企业实现数字化转型和创新增长。",
+                    "addressShort": "中国 香港",
+                    "workingHours": "周一至周五: 9:00 - 18:00",
+                    "allRightsReserved": "保留所有权利",
+                    "icp": "京ICP备12345678号"
+                }
+            },
+            'zh-TW': {
+                translation: {
+                    "home": "首頁",
+                    "services": "服務",
+                    "projects": "項目",
+                    "about": "關於我們",
+                    "testimonials": "客戶評價",
+                    "contact": "聯繫我們",
+                    "heroTitle": "創新技術解決方案助力企業數字化轉型",
+                    "heroText": "我們提供前沿的科技服務和定制化解決方案，幫助企業提升效率、優化流程並實現業務增長",
+                    "exploreBtn": "開始探索",
+                    "learnMoreBtn": "了解更多",
+                    "servicesTitle": "我們的專業服務",
+                    "servicesSubtitle": "我們提供全方位的數字解決方案，助力企業在競爭激烈的市場中脫穎而出",
+                    "webDev": "網站開發",
+                    "webDevDesc": "定制化網站設計與開發，響應式佈局，確保在所有設備上完美呈現",
+                    "mobileApp": "移動應用",
+                    "mobileAppDesc": "iOS和Android原生應用開發，提供流暢的用戶體驗和卓越性能",
+                    "cloudSolution": "雲解決方案",
+                    "cloudSolutionDesc": "基於雲的架構設計、遷移和管理服務，實現靈活擴展和成本優化",
+                    "dataAnalysis": "數據分析",
+                    "dataAnalysisDesc": "數據挖掘、分析和可視化，提供有價值的業務洞察和決策支持",
+                    "cyberSecurity": "網絡安全",
+                    "cyberSecurityDesc": "全面的安全評估、滲透測試和防護策略，保障企業數據和系統安全",
+                    "aiSolution": "人工智能",
+                    "aiSolutionDesc": "AI解決方案開發，包括機器學習模型、自然語言處理和智能自動化",
+                    "successProjects": "成功項目",
+                    "customerSatisfaction": "客戶滿意度",
+                    "professionalTeam": "專業團隊",
+                    "industryAwards": "行業獎項",
+                    "projectCases": "精選項目案例",
+                    "projectSubtitle": "探索我們為各行業領先企業打造的成功案例",
+                    "fintechPlatform": "金融科技平台",
+                    "fintechDesc": "為全球金融機構開發的現代化交易和分析平台",
+                    "webApp": "Web應用",
+                    "fintech": "金融科技",
+                    "dataAnalysisTag": "數據分析",
+                    "ecommerceSolution": "電商解決方案",
+                    "ecommerceDesc": "為零售企業打造的全渠道電子商務平台",
+                    "ecommerce": "電子商務",
+                    "mobileAppTag": "移動應用",
+                    "paymentSystem": "支付系統",
+                    "healthSystem": "醫療健康系統",
+                    "healthDesc": "為大型醫院集團開發的綜合健康管理系統",
+                    "medTech": "醫療技術",
+                    "cloudPlatform": "雲平台",
+                    "dataSecurity": "數據安全",
+                    "aboutUs": "關於我們",
+                    "aboutSubtitle": "致力於現代生物醫藥健康領域，行業奠基石",
+                    "testimonialsTitle": "客戶評價",
+                    "testimonialsSubtitle": "聽聽我們的客戶怎麼說",
+                    "testimonial1": "\"TechVision團隊為我們的數字化轉型提供了卓越的解決方案。他們的專業知識和創新思維幫助我們提升了30%的運營效率，客戶滿意度顯著提高。\"",
+                    "clientName1": "張雅雯",
+                    "clientPosition1": "創新科技 CEO",
+                    "testimonial2": "\"與TechVision合作是一次非常愉快的經歷。他們開發的移動應用不僅設計精美，而且性能出色，用戶反饋極好，幫助我們拓展了新的市場。\"",
+                    "clientName2": "李明哲",
+                    "clientPosition2": "智行科技 CTO",
+                    "testimonial3": "\"TechVision的雲解決方案幫助我們實現了IT基礎設施的現代化，成本降低了40%，同時系統穩定性和安全性得到了顯著提升。\"",
+                    "clientName3": "陳思穎",
+                    "clientPosition3": "未來集團 IT總監",
+                    "contactUs": "聯繫我們",
+                    "nameLabel": "姓名",
+                    "namePlaceholder": "請輸入您的姓名",
+                    "emailLabel": "電子郵箱",
+                    "emailPlaceholder": "請輸入您的電子郵箱",
+                    "subjectLabel": "主題",
+                    "subjectPlaceholder": "請輸入主題",
+                    "messageLabel": "留言",
+                    "messagePlaceholder": "請輸入您的留言",
+                    "sendMessage": "發送消息",
+                    "contactInfo": "聯繫方式",
+                    "companyAddress": "公司地址",
+                    "addressDetail": "北京市海淀區科技園區88號創新大廈15層",
+                    "phoneNumber": "聯繫電話",
+                    "email": "電子郵箱",
+                    "quickLinks": "快速鏈接",
+                    "footerAbout": "TechVision是一家領先的技術解決方案提供商，致力於幫助企業實現數字化轉型和創新增長。",
+                    "addressShort": "中国 香港",
+                    "workingHours": "週一至週五: 9:00 - 18:00",
+                    "allRightsReserved": "保留所有權利",
+                    "icp": "京ICP備12345678號"
+                }
+            },
+            'en': {
+                translation: {
+                    "home": "Home",
+                    "services": "Services",
+                    "projects": "Projects",
+                    "about": "About Us",
+                    "testimonials": "Testimonials",
+                    "contact": "Contact",
+                    "heroTitle": "Innovative Technology Solutions for Digital Transformation",
+                    "heroText": "We provide cutting-edge technology services and customized solutions to help businesses improve efficiency, optimize processes and achieve growth",
+                    "exploreBtn": "Get Started",
+                    "learnMoreBtn": "Learn More",
+                    "servicesTitle": "Our Professional Services",
+                    "servicesSubtitle": "We provide comprehensive digital solutions to help companies stand out in a competitive market",
+                    "webDev": "Web Development",
+                    "webDevDesc": "Custom website design and development with responsive layout to ensure perfect presentation on all devices",
+                    "mobileApp": "Mobile Applications",
+                    "mobileAppDesc": "iOS and Android native app development providing smooth user experience and excellent performance",
+                    "cloudSolution": "Cloud Solutions",
+                    "cloudSolutionDesc": "Cloud-based architecture design, migration and management services for flexible scaling and cost optimization",
+                    "dataAnalysis": "Data Analysis",
+                    "dataAnalysisDesc": "Data mining, analysis and visualization to provide valuable business insights and decision support",
+                    "cyberSecurity": "Cyber Security",
+                    "cyberSecurityDesc": "Comprehensive security assessment, penetration testing and protection strategies to safeguard corporate data and systems",
+                    "aiSolution": "Artificial Intelligence",
+                    "aiSolutionDesc": "AI solution development including machine learning models, natural language processing and intelligent automation",
+                    "successProjects": "Successful Projects",
+                    "customerSatisfaction": "Customer Satisfaction",
+                    "professionalTeam": "Professional Team",
+                    "industryAwards": "Industry Awards",
+                    "projectCases": "Featured Project Cases",
+                    "projectSubtitle": "Explore our successful cases created for leading companies across industries",
+                    "fintechPlatform": "Fintech Platform",
+                    "fintechDesc": "Modern trading and analytics platform developed for global financial institutions",
+                    "webApp": "Web Application",
+                    "fintech": "Fintech",
+                    "dataAnalysisTag": "Data Analysis",
+                    "ecommerceSolution": "E-commerce Solution",
+                    "ecommerceDesc": "Omnichannel e-commerce platform built for retail businesses",
+                    "ecommerce": "E-commerce",
+                    "mobileAppTag": "Mobile App",
+                    "paymentSystem": "Payment System",
+                    "healthSystem": "Healthcare System",
+                    "healthDesc": "Comprehensive health management system developed for large hospital groups",
+                    "medTech": "Medical Technology",
+                    "cloudPlatform": "Cloud Platform",
+                    "dataSecurity": "Data Security",
+                    "aboutUs": "About Us",
+                    "aboutSubtitle": "Dedicated to modern biomedical health field, the cornerstone of the industry",
+                    "testimonialsTitle": "Testimonials",
+                    "testimonialsSubtitle": "What our clients say about us",
+                    "testimonial1": "\"TechVision team provided excellent solutions for our digital transformation. Their expertise and innovative thinking helped us improve operational efficiency by 30% and significantly increase customer satisfaction.\"",
+                    "clientName1": "Zhang Yawen",
+                    "clientPosition1": "CEO, Innovation Tech",
+                    "testimonial2": "\"Working with TechVision was a very pleasant experience. The mobile app they developed is not only beautifully designed but also performs excellently, with great user feedback that helped us expand into new markets.\"",
+                    "clientName2": "Li Mingzhe",
+                    "clientPosition2": "CTO, SmartGo Tech",
+                    "testimonial3": "\"TechVision's cloud solutions helped us modernize our IT infrastructure, reducing costs by 40% while significantly improving system stability and security.\"",
+                    "clientName3": "Chen Siying",
+                    "clientPosition3": "IT Director, Future Group",
+                    "contactUs": "Contact Us",
+                    "nameLabel": "Name",
+                    "namePlaceholder": "Please enter your name",
+                    "emailLabel": "Email",
+                    "emailPlaceholder": "Please enter your email",
+                    "subjectLabel": "Subject",
+                    "subjectPlaceholder": "Please enter subject",
+                    "messageLabel": "Message",
+                    "messagePlaceholder": "Please enter your message",
+                    "sendMessage": "Send Message",
+                    "contactInfo": "Contact Information",
+                    "companyAddress": "Company Address",
+                    "addressDetail": "15F, Innovation Building, No.88 Technology Park, Haidian District, Beijing",
+                    "phoneNumber": "Phone Number",
+                    "email": "Email",
+                    "quickLinks": "Quick Links",
+                    "footerAbout": "TechVision is a leading technology solutions provider committed to helping businesses achieve digital transformation and innovative growth.",
+                    "addressShort": "Hong Kong China",
+                    "workingHours": "Monday to Friday: 9:00 - 18:00",
+                    "allRightsReserved": "All Rights Reserved",
+                    "icp": "ICP No.12345678"
+                }
+            }
+        };
+
+        // 检测移动设备
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || 
+                   (navigator.userAgent.indexOf('IEMobile') !== -1) ||
+                   (window.innerWidth <= 768);
         }
-        
-        // 更新时间轴位置和内容
-        function updateTimeline(index) {
-            currentIndex = index;
-            const width = document.querySelector('.timeline-wrapper').offsetWidth;
-            const position = (index / (years.length - 1)) * width;
+
+        // 初始化i18next
+        i18next
+            .use(i18nextBrowserLanguageDetector)
+            .init({
+                resources,
+                fallbackLng: 'zh-CN',
+                debug: false,
+                interpolation: { escapeValue: false }
+            }, initApp);
+
+        function initApp() {
+            // 设置语言切换器
+            setupLanguageSwitcher();
             
-            handle.style.left = `${position}px`;
-            timelineValue.textContent = years[index];
-            progressBar.style.width = `${position}px`;
+            // 优化移动端体验
+            optimizeLanguageSwitcher();
             
             // 更新内容
-            contentItems.forEach(item => {
-                item.classList.remove('active');
+            updateContent();
+            
+            // 检查存储的语言偏好
+            const savedLanguage = localStorage.getItem('userLanguage');
+            if (savedLanguage) {
+                i18next.changeLanguage(savedLanguage);
+            }
+            
+            // 初始化轮播等其他功能
+            initSwiper();
+            
+            // 初始化其他事件监听
+            initEventListeners();
+        }
+
+        function setupLanguageSwitcher() {
+            document.querySelectorAll('.lang-icon').forEach(icon => {
+                // 移除旧的事件监听器
+                icon.removeEventListener('click', handleLanguageSwitch);
+                icon.removeEventListener('touchend', handleLanguageSwitch);
+                
+                // 添加新的事件监听器
+                icon.addEventListener('click', handleLanguageSwitch);
+                icon.addEventListener('touchend', handleLanguageSwitch);
             });
-            document.getElementById(`content${index + 1}`).classList.add('active');
         }
-        
-        // 自动播放功能
-        function startAutoPlay() {
-            if (isPlaying) return;
+
+        function handleLanguageSwitch(e) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            isPlaying = true;
-            autoPlayInterval = setInterval(() => {
-                let nextIndex = currentIndex + 1;
-                if (nextIndex >= years.length) {
-                    nextIndex = 0;
+            // 防止快速连续点击
+            if (this.classList.contains('clicked')) return;
+            this.classList.add('clicked');
+            
+            setTimeout(() => {
+                this.classList.remove('clicked');
+            }, 500);
+            
+            const lang = this.getAttribute('data-lang');
+            i18next.changeLanguage(lang, () => {
+                updateContent();
+                localStorage.setItem('userLanguage', lang);
+                updateActiveLangButton();
+            });
+        }
+
+        function updateActiveLangButton() {
+            document.querySelectorAll('.lang-icon').forEach(icon => {
+                icon.classList.remove('active');
+                if (icon.getAttribute('data-lang') === i18next.language) {
+                    icon.classList.add('active');
                 }
-                updateTimeline(nextIndex);
-            }, autoPlaySpeed);
+            });
         }
-        
-        function stopAutoPlay() {
-            isPlaying = false;
-            clearInterval(autoPlayInterval);
+
+        function updateContent() {
+            // 更新所有带有data-i18n属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                
+                if (element.hasAttribute('placeholder')) {
+                    element.setAttribute('placeholder', i18next.t(key));
+                } else {
+                    element.textContent = i18next.t(key);
+                }
+            });
+            
+            updateActiveLangButton();
         }
-        
-        // 拖拽功能
-        let isDragging = false;
-        
-        handle.addEventListener('mousedown', () => {
-            isDragging = true;
-            handle.style.cursor = 'grabbing';
-            stopAutoPlay(); // 手动交互时暂停自动播放
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
+
+        function optimizeLanguageSwitcher() {
+            if (isMobileDevice()) {
+                // 隐藏导航栏中的语言切换（如果存在）
+                const navLangSwitcher = document.querySelector('.navbar .language-icons');
+                if (navLangSwitcher) {
+                    navLangSwitcher.style.display = 'none';
+                }
+                
+                // 添加浮动语言切换按钮（如果不存在）
+                if (!document.querySelector('.language-icons.floating')) {
+                    const floatingLangSwitcher = document.createElement('div');
+                    floatingLangSwitcher.className = 'language-icons floating';
+                    floatingLangSwitcher.innerHTML = `
+                        <button class="lang-icon" data-lang="zh-CN" aria-label="简体中文">简</button>
+                        <button class="lang-icon" data-lang="zh-TW" aria-label="繁體中文">繁</button>
+                        <button class="lang-icon" data-lang="en" aria-label="English">EN</button>
+                    `;
+                    document.body.appendChild(floatingLangSwitcher);
+                    
+                    // 设置初始激活状态
+                    updateActiveLangButton();
+                    
+                    // 设置事件
+                    setupLanguageSwitcher();
+                }
+            }
+        }
+
+        function initSwiper() {
+            // 轮播图初始化
+            new Swiper('.swiper', {
+                loop: true,
+                autoplay: { 
+                    delay: 5000,
+                    disableOnInteraction: false 
+                },
+                pagination: { 
+                    el: '.swiper-pagination',
+                    clickable: true 
+                },
+                navigation: { 
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                }
+            });
+        }
+
+        function initEventListeners() {
+            // 平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
             
-            const timelineWrapper = document.querySelector('.timeline-wrapper');
-            const rect = timelineWrapper.getBoundingClientRect();
-            let position = e.clientX - rect.left;
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = '#fff';
+                    header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = 'none';
+                }
+            });
             
-            // 限制在时间轴范围内
-            position = Math.max(0, Math.min(position, rect.width));
-            
-            // 计算最近的年份点
-            const percent = position / rect.width;
-            const index = Math.round(percent * (years.length - 1));
-            
-            updateTimeline(index);
-        });
-        
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            handle.style.cursor = 'grab';
-        });
-        
-        // 点击时间轴跳转
-        document.querySelector('.timeline-wrapper').addEventListener('click', (e) => {
-            const timelineWrapper = document.querySelector('.timeline-wrapper');
-            const rect = timelineWrapper.getBoundingClientRect();
-            const position = e.clientX - rect.left;
-            const percent = position / rect.width;
-            const index = Math.round(percent * (years.length - 1));
-            
-            updateTimeline(index);
-            stopAutoPlay(); // 手动交互时暂停自动播放
-        });
-        
-        // 控制按钮事件
-        playBtn.addEventListener('click', startAutoPlay);
-        pauseBtn.addEventListener('click', stopAutoPlay);
-        
-        // 初始化
-        initTimeline();
-        startAutoPlay(); // 默认自动播放
+            // 服务卡片动画效果
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+        }
+
+        // 页面加载完成后初始化应用
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
