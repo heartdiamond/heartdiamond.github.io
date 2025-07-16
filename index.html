@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>科技企业解决方案 | 现代企业网站</title>
+    <title>HKHIA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">	
@@ -652,6 +652,17 @@
             color: #94a3b8;
             font-size: 0.95rem;
         }
+
+        /* Add your main page styles here */
+        .job-card {
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .language-selector {
+            margin: 20px 0;
+        }
         
         /* 动画效果 */
         @keyframes fadeInUp {
@@ -711,38 +722,30 @@
             .section-title h2 {
                 font-size: 2rem;
             }
-
-            /* 移动端导航栏语言切换隐藏 */
-            .navbar .language-icons {
-                display: none;
-            }
         }
 
-        /* 语言图标样式 - 改进版 */
+        /* 语言图标样式 */
         .language-icons {
             display: flex;
-            gap: 12px;
-            padding: 8px;
+            gap: 8px;
         }
         
         .lang-icon {
-            width: 42px;
-            height: 42px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: #f0f4ff;
             color: #2563eb;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            border: none;
-            cursor: pointer;
+            text-decoration: none;
             transition: all 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
         }
         
-        .lang-icon:hover, .lang-icon:active {
+        .lang-icon:hover {
             background: #2563eb;
             color: white;
             transform: translateY(-2px);
@@ -753,25 +756,8 @@
             color: white;
         }
 
-        /* 移动端浮动语言切换按钮 */
-        .language-icons.floating {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(255,255,255,0.9);
-            border-radius: 30px;
-            padding: 8px 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        @media (min-width: 769px) {
-            .language-icons.floating {
-                display: none;
-            }
-        }
-
         /* 首页添加轮播图样式 */
+        /* Swiper样式调整 */
         .swiper {
             width: 100%;
             height: 100%;
@@ -817,11 +803,12 @@
         .hero-image {
             flex: 1;
             width: 100%;
-            height: 400px;
+            height: 400px; /* 添加固定高度 */
             border-radius: 15px;
             overflow: hidden;
         }
 
+        /* 调整轮播图本身样式 */
         .swiper {
             width: 100%;
             height: 100%;
@@ -831,12 +818,152 @@
         .swiper-slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* 确保图片填充但不失真 */
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero-image {
+                height: 300px; /* 小屏幕上减小高度 */
+            }
+        }
+
+        /* 弹出窗口样式 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-container {
+            max-width: 800px;
+            width: 90%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .popup-header {
+            background: #2563eb;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        .popup-title {
+            margin: 0;
+            font-size: 1.8rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .popup-content {
+            padding: 30px;
         }
 
         @media (max-width: 768px) {
-            .hero-image {
-                height: 300px;
+            .popup-container {
+                width: 95%;
+            }
+            
+            .popup-content {
+                padding: 20px;
+            }
+            
+            .popup-title {
+                font-size: 1.5rem;
+                padding-right: 40px;
+            }
+        }
+
+        /* 会员申请流程样式 */
+        .membership-process {
+            margin-top: 50px;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .process-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+        }
+
+        .process-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: #2563eb;
+            font-size: 1.5rem;
+        }
+
+        .process-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .process-card ul, .process-card ol {
+            padding-left: 20px;
+            color: #475569;
+        }
+
+        .process-card li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .apply-btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .process-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -848,20 +975,20 @@
             <nav class="navbar">
                 <div class="logo">
                     <i class="fas fa-rocket"></i>
-                    <span>HIA</span>
+                    <span>HKHIA</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#home" data-i18n="home">首页</a></li>
-                    <li><a href="#services" data-i18n="services">服务</a></li>
-                    <li><a href="#projects" data-i18n="projects">项目</a></li>
-                    <li><a href="#about" data-i18n="about">关于我们</a></li>
-                    <li><a href="#testimonials" data-i18n="testimonials">客户评价</a></li>
+                    <li><a href="#home" data-i18n="home">协会宗旨</a></li>
+                    <li><a href="#services" data-i18n="services">服务项目</a></li>
+                    <li><a href="#projects" data-i18n="projects">最新资讯</a></li>
+                    <li><a href="#about" data-i18n="about">会员申请</a></li>
+                    <li><a href="#testimonials" data-i18n="testimonials">工作机会</a></li>
                     <li><a href="#contact" data-i18n="contact">联系我们</a></li>
                 </ul>
                 <div class="language-icons">
-                    <button class="lang-icon active" data-lang="zh-CN" aria-label="简体中文">简</button>
-                    <button class="lang-icon" data-lang="zh-TW" aria-label="繁體中文">繁</button>
-                    <button class="lang-icon" data-lang="en" aria-label="English">EN</button>
+                    <a href="#" title="简体中文" class="lang-icon active" data-lang="zh-CN">简</a>
+                    <a href="#" title="繁體中文" class="lang-icon" data-lang="zh-TW">繁</a>
+                    <a href="#" title="English" class="lang-icon" data-lang="en">EN</a>
                 </div>
             </nav>
         </div>
@@ -872,11 +999,10 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1 data-i18n="heroTitle">创新技术解决方案助力企业数字化转型</h1>
-                    <p data-i18n="heroText">我们提供前沿的科技服务和定制化解决方案，帮助企业提升效率、优化流程并实现业务增长</p>
+                    <h1 data-i18n="heroTitle">香港健科协以科技创新驱动健康美丽产业</h1>
+                    <p data-i18n="heroText">香港健康科技创新产业协会作为非营利机构，立足香港，以科技创新推动健康与美丽产业升级。</p>
                     <div class="hero-btns">
-                        <button class="btn btn-primary" data-i18n="exploreBtn">开始探索</button>
-                        <button class="btn btn-secondary" data-i18n="learnMoreBtn">了解更多</button>
+                        <button class="btn btn-secondary" onclick="openAboutPopup()" data-i18n="aboutBtn">了解更多</button>
                     </div>
                 </div>
 
@@ -893,7 +1019,10 @@
                                 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="企业解决方案3">
                             </div>
                         </div>
+                        <!-- 如果需要分页器 -->
                         <div class="swiper-pagination"></div>
+                        
+                        <!-- 如果需要导航按钮 -->
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
                     </div>
@@ -907,74 +1036,50 @@
         <div class="container">
             <div class="section-title">
                 <h2 data-i18n="servicesTitle">我们的专业服务</h2>
-                <p data-i18n="servicesSubtitle">我们提供全方位的数字解决方案，助力企业在竞争激烈的市场中脱颖而出</p>
+                <p data-i18n="servicesSubtitle">立足香港，联通国际，我们提供健康科技全产业链服务。</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-laptop-code"></i>
                     </div>
-                    <h3 data-i18n="webDev">网站开发</h3>
-                    <p data-i18n="webDevDesc">定制化网站设计与开发，响应式布局，确保在所有设备上完美呈现</p>
+                    <h3 data-i18n="webDev">国际项目落地</h3>
+                    <p data-i18n="webDevDesc">海外生物医药技术引进</br>中国市场准入咨询</br>亚洲商业伙伴匹配</br></p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3 data-i18n="mobileApp">移动应用</h3>
-                    <p data-i18n="mobileAppDesc">iOS和Android原生应用开发，提供流畅的用户体验和卓越性能</p>
+                    <h3 data-i18n="mobileApp">政策与法规支持</h3>
+                    <p data-i18n="mobileAppDesc">监管合规指导</br>产业标准制定</br>政府沟通桥梁</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-cloud"></i>
                     </div>
-                    <h3 data-i18n="cloudSolution">云解决方案</h3>
-                    <p data-i18n="cloudSolutionDesc">基于云的架构设计、迁移和管理服务，实现灵活扩展和成本优化</p>
+                    <h3 data-i18n="cloudSolution">科技创新加速</h3>
+                    <p data-i18n="cloudSolutionDesc">科研成果产业化</br>知识产权战略</br>技术评估与孵化</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3 data-i18n="dataAnalysis">数据分析</h3>
-                    <p data-i18n="dataAnalysisDesc">数据挖掘、分析和可视化，提供有价值的业务洞察和决策支持</p>
+                    <h3 data-i18n="dataAnalysis">资本对接服务</h3>
+                    <p data-i18n="dataAnalysisDesc">投融资路演</br>创投机构引荐</br>跨境资金方案</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 data-i18n="cyberSecurity">网络安全</h3>
-                    <p data-i18n="cyberSecurityDesc">全面的安全评估、渗透测试和防护策略，保障企业数据和系统安全</p>
+                    <h3 data-i18n="cyberSecurity">行业交流平台</h3>
+                    <p data-i18n="cyberSecurityDesc">国际峰会与论坛</br>专家研讨会</br>企业参访考察</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-robot"></i>
                     </div>
-                    <h3 data-i18n="aiSolution">人工智能</h3>
-                    <p data-i18n="aiSolutionDesc">AI解决方案开发，包括机器学习模型、自然语言处理和智能自动化</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 数据统计部分 -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>250+</h3>
-                    <p data-i18n="successProjects">成功项目</p>
-                </div>
-                <div class="stat-item">
-                    <h3>98%</h3>
-                    <p data-i18n="customerSatisfaction">客户满意度</p>
-                </div>
-                <div class="stat-item">
-                    <h3>50+</h3>
-                    <p data-i18n="professionalTeam">专业团队</p>
-                </div>
-                <div class="stat-item">
-                    <h3>12</h3>
-                    <p data-i18n="industryAwards">行业奖项</p>
+                    <h3 data-i18n="aiSolution">会员专属服务</h3>
+                    <p data-i18n="aiSolutionDesc">行业趋势报告</br>精准业务配对</br>品牌推广支持</p>
                 </div>
             </div>
         </div>
@@ -984,52 +1089,56 @@
     <section class="projects" id="projects">
         <div class="container">
             <div class="section-title">
-                <h2 data-i18n="projectCases">精选项目案例</h2>
-                <p data-i18n="projectSubtitle">探索我们为各行业领先企业打造的成功案例</p>
+                <h2 data-i18n="projectCases">最新资讯</h2>
+                <p data-i18n="projectSubtitle">聚焦2025年健康科技领域前沿动态</p>
             </div>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="金融科技平台">
+                        <img src="https://images.unsplash.com/photo-1622675363311-3e1904dc1885?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI医疗诊断">
                     </div>
                     <div class="project-info">
-                        <h3 data-i18n="fintechPlatform">金融科技平台</h3>
-                        <p data-i18n="fintechDesc">为全球金融机构开发的现代化交易和分析平台</p>
+                        <h3 data-i18n="news1Title">AI辅助诊断系统获FDA突破性认证</h3>
+                        <p data-i18n="news1Desc">2025年最新获批系统可同时筛查12种常见癌症，准确率达99.2%</p>
+                        <div class="project-date" data-i18n="news1Date">2025-07-10</div>
                         <div class="project-tags">
-                            <span class="tag" data-i18n="webApp">Web应用</span>
-                            <span class="tag" data-i18n="fintech">金融科技</span>
-                            <span class="tag" data-i18n="dataAnalysisTag">数据分析</span>
+                            <span class="tag" data-i18n="ai">人工智能</span>
+                            <span class="tag" data-i18n="medical">医疗诊断</span>
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="电商解决方案">
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="ecommerceSolution">电商解决方案</h3>
-                        <p data-i18n="ecommerceDesc">为零售企业打造的全渠道电子商务平台</p>
-                        <div class="project-tags">
-                            <span class="tag" data-i18n="ecommerce">电子商务</span>
-                            <span class="tag" data-i18n="mobileAppTag">移动应用</span>
-                            <span class="tag" data-i18n="paymentSystem">支付系统</span>
-                        </div>
+                
+                 <!-- 资讯2 -->
+            <div class="project-card">
+                <div class="project-image">
+                     <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="香港健康科技">
+                </div>
+                <div class="project-info">
+                    <h3 data-i18n="news2Title">香港健康科技产业园正式启用</h3>
+                    <p data-i18n="news2Desc">首期投资50亿港元，已吸引32家国际生物医药企业入驻</p>
+                    <div class="project-date" data-i18n="news2Date">2025-06-28</div>
+                    <div class="project-tags">
+                        <span class="tag" data-i18n="biotech">生物医药</span>
+                        <span class="tag" data-i18n="hk">香港</span>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="医疗健康系统">
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="healthSystem">医疗健康系统</h3>
-                        <p data-i18n="healthDesc">为大型医院集团开发的综合健康管理系统</p>
-                        <div class="project-tags">
-                            <span class="tag" data-i18n="medTech">医疗技术</span>
-                            <span class="tag" data-i18n="cloudPlatform">云平台</span>
-                            <span class="tag" data-i18n="dataSecurity">数据安全</span>
-                        </div>
+            </div>
+            
+            <!-- 资讯3 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="基因治疗">
+                </div>
+                <div class="project-info">
+                    <h3 data-i18n="news3Title">基因编辑疗法首次治愈遗传性失明</h3>
+                    <p data-i18n="news3Desc">2025年临床试验显示，新型CRISPR技术成功恢复患者80%视力</p>
+                    <div class="project-date" data-i18n="news3Date">2025-06-15</div>
+                    <div class="project-tags">
+                        <span class="tag" data-i18n="genetherapy">基因治疗</span>
+                        <span class="tag" data-i18n="breakthrough">重大突破</span>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </section>
@@ -1037,8 +1146,66 @@
     <section class="about" id="about">
         <div class="container">
             <div class="section-title">
-                <h2 data-i18n="aboutUs">关于我们</h2>
+                <h2 data-i18n="aboutUs">会员申请</h2>
                 <p data-i18n="aboutSubtitle">致力于现代生物医药健康领域，行业奠基石。</p>
+            </div>
+           
+            <div class="process-grid">
+                <!-- 申请资格 -->
+                <div class="process-card">
+                    <div class="process-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 data-i18n="eligibilityTitle">申请资格</h3>
+                    <ul>
+                        <li data-i18n="eligibility1">从事健康科技相关领域的企业、机构或个人</li>
+                        <li data-i18n="eligibility2">认同协会宗旨并愿意遵守章程</li>
+                    </ul>
+                </div>
+                
+                <!-- 申请材料 -->
+                <div class="process-card">
+                    <div class="process-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 data-i18n="materialsTitle">申请材料</h3>
+                    <ul>
+                        <li data-i18n="material1">填写完整的会员申请表</li>
+                        <li data-i18n="material2">企业营业执照/个人身份证明复印件</li>
+                        <li data-i18n="material3">公司/个人简介及业务说明</li>
+                    </ul>
+                </div>
+                
+                <!-- 申请流程 -->
+                <div class="process-card">
+                    <div class="process-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h3 data-i18n="procedureTitle">申请流程</h3>
+                    <ol>
+                        <li data-i18n="step1">提交申请材料至协会邮箱：info@hkhia.com</li>
+                        <li data-i18n="step2">协会审核(约5-7个工作日)</li>
+                        <li data-i18n="step3">审核通过后缴纳会费</li>
+                        <li data-i18n="step4">正式成为会员，享受各项权益</li>
+                    </ol>
+                </div>
+                
+                <!-- 会费标准 -->
+                <div class="process-card">
+                    <div class="process-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 data-i18n="feesTitle">会费标准</h3>
+                    <ul>
+                        <li data-i18n="fee1">企业会员：年度会费请咨询秘书处</li>
+                        <li data-i18n="fee2">个人会员：年度会费请咨询秘书处</li>
+                        <li data-i18n="fee3">学术机构：享有特别优惠费率</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="apply-btn-container">
+                <button class="btn btn-primary" onclick="window.location.href='mailto:info@hkhia.com'" data-i18n="applyNow">立即申请</button>
             </div>
         </div>
     </section>
@@ -1047,44 +1214,27 @@
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="section-title">
-                <h2 data-i18n="testimonialsTitle">客户评价</h2>
-                <p data-i18n="testimonialsSubtitle">听听我们的客户怎么说</p>
+                <h2 data-i18n="testimonialsTitle">工作机会</h2>
+                <p data-i18n="testimonialsSubtitle">招贤纳士，共筑健康科技生态</p>
             </div>
             <div class="testimonial-grid">
                 <div class="testimonial-card">
-                    <p class="testimonial-content" data-i18n="testimonial1">"HIA团队为我们的数字化转型提供了卓越的解决方案。他们的专业知识和创新思维帮助我们提升了30%的运营效率，客户满意度显著提高。"</p>
-                    <div class="testimonial-author">
-                        <div class="author-image">
-                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="客户">
-                        </div>
-                        <div class="author-info">
-                            <h4 data-i18n="clientName1">张雅雯</h4>
-                            <p data-i18n="clientPosition1">创新科技 CEO</p>
-                        </div>
+                    <div class="job-card" data-job="job1">
+                        <h3 data-i18n="job1Title">健康科技项目经理</h3>
+                        <p data-i18n="job1Desc">负责统筹健康科技领域的创新项目...</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="job-card" data-job="job2">
+                        <h3 data-i18n="job2Title">政策研究与合规专员</h3>
+                        <p data-i18n="job2Desc">负责监测健康科技政策动态...</p>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-content" data-i18n="testimonial2">"与HIA合作是一次非常愉快的经历。他们开发的移动应用不仅设计精美，而且性能出色，用户反馈极好，帮助我们拓展了新的市场。"</p>
-                    <div class="testimonial-author">
-                        <div class="author-image">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="客户">
-                        </div>
-                        <div class="author-info">
-                            <h4 data-i18n="clientName2">李明哲</h4>
-                            <p data-i18n="clientPosition2">智行科技 CTO</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-content" data-i18n="testimonial3">"HIA的云解决方案帮助我们实现了IT基础设施的现代化，成本降低了40%，同时系统稳定性和安全性得到了显著提升。"</p>
-                    <div class="testimonial-author">
-                        <div class="author-image">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="客户">
-                        </div>
-                        <div class="author-info">
-                            <h4 data-i18n="clientName3">陈思颖</h4>
-                            <p data-i18n="clientPosition3">未来集团 IT总监</p>
-                        </div>
+                    <div class="job-card" data-job="job3">
+                        <h3 data-i18n="job3Title">市场拓展与合作伙伴经理</h3>
+                        <p data-i18n="job3Desc">负责开发并维护协会生态伙伴...</p>
                     </div>
                 </div>
             </div>
@@ -1095,37 +1245,9 @@
     <section class="contact" id="contact">
         <div class="container">
             <div class="contact-container">
-
-                <div class="section-title"><!--contact-form-->
-                    <h2 data-i18n="contactUs">联系我们</h3>
-
-		
-<!--
-                    <form>
-                        <div class="form-group">
-                            <label for="name" data-i18n="nameLabel">姓名</label>
-                            <input type="text" id="name" class="form-control" data-i18n="namePlaceholder" placeholder="请输入您的姓名">
-                        </div>
-                        <div class="form-group">
-                            <label for="email" data-i18n="emailLabel">电子邮箱</label>
-                            <input type="email" id="email" class="form-control" data-i18n="emailPlaceholder" placeholder="请输入您的电子邮箱">
-                        </div>
-                        <div class="form-group">
-                            <label for="subject" data-i18n="subjectLabel">主题</label>
-                            <input type="text" id="subject" class="form-control" data-i18n="subjectPlaceholder" placeholder="请输入主题">
-                        </div>
-                        <div class="form-group">
-                            <label for="message" data-i18n="messageLabel">留言</label>
-                            <textarea id="message" class="form-control" data-i18n="messagePlaceholder" placeholder="请输入您的留言"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" data-i18n="sendMessage">发送消息</button>
-                    </form>
--->
-
-
+                <div class="section-title">
+                    <h2 data-i18n="contactUs">联系我们</h2>
                 </div>
-
-
                 <div class="contact-info">
                     <h3 data-i18n="contactInfo">联系方式</h3>
                     <div class="contact-details">
@@ -1144,7 +1266,7 @@
                             </div>
                             <div class="contact-text">
                                 <h4 data-i18n="phoneNumber">联系电话</h4>
-                                <p>+852 8888-8888</p>
+                                <p>+852 8888 8888</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -1153,15 +1275,9 @@
                             </div>
                             <div class="contact-text">
                                 <h4 data-i18n="email">电子邮箱</h4>
-                                <p><a href="mailto:info@hkhia.com">info@hkhhia.com</a></p>
+                                <p><a href="mailto:info@hkhia.com">info@hkhia.com</a></p>
                             </div>
                         </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-weixin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-weibo"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
             </div>
@@ -1172,53 +1288,84 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <h4 data-i18n="aboutUs">关于我们</h4>
-                    <p class="footer-text" data-i18n="footerAbout">HIA是一家领先的技术解决方案提供商，致力于帮助企业实现数字化转型和创新增长。</p>
-                    <div class="newsletter-form">
-                        <input type="email" data-i18n="emailPlaceholder" placeholder="输入您的邮箱">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                </div>
+                
                 <div class="footer-col">
                     <h4 data-i18n="quickLinks">快速链接</h4>
                     <ul class="footer-links">
-                        <li><a href="#home" data-i18n="home">首页</a></li>
-                        <li><a href="#services" data-i18n="services">服务</a></li>
-                        <li><a href="#projects" data-i18n="projects">项目</a></li>
-                        <li><a href="#about" data-i18n="about">关于我们</a></li>
-                        <li><a href="#testimonials" data-i18n="testimonials">客户评价</a></li>
+                        <li><a href="#home" data-i18n="home">协会宗旨</a></li>
+                        <li><a href="#services" data-i18n="services">服务项目</a></li>
+                        <li><a href="#projects" data-i18n="projects">最新资讯</a></li>
+                        <li><a href="#about" data-i18n="about">会员申请</a></li>
+                        <li><a href="#testimonials" data-i18n="testimonials">工作机会</a></li>
                         <li><a href="#contact" data-i18n="contact">联系我们</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4 data-i18n="services">服务项目</h4>
                     <ul class="footer-links">
-                        <li><a href="#" data-i18n="webDev">网站开发</a></li>
-                        <li><a href="#" data-i18n="mobileApp">移动应用</a></li>
-                        <li><a href="#" data-i18n="cloudSolution">云解决方案</a></li>
-                        <li><a href="#" data-i18n="dataAnalysis">数据分析</a></li>
-                        <li><a href="#" data-i18n="cyberSecurity">网络安全</a></li>
-                        <li><a href="#" data-i18n="aiSolution">人工智能</a></li>
+                        <li><a href="#" data-i18n="webDev">国际项目落地</a></li>
+                        <li><a href="#" data-i18n="mobileApp">政策与法规支持</a></li>
+                        <li><a href="#" data-i18n="cloudSolution">科技创新加速</a></li>
+                        <li><a href="#" data-i18n="dataAnalysis">资本对接服务</a></li>
+                        <li><a href="#" data-i18n="cyberSecurity">行业交流平台</a></li>
+                        <li><a href="#" data-i18n="aiSolution">会员专属服务</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4 data-i18n="contactUs">联系我们</h4>
                     <ul class="footer-links">
                         <li><i class="fas fa-map-marker-alt"></i> <span data-i18n="addressShort">中国 香港</span></li>
-                        <li><i class="fas fa-phone-alt"></i> +852 8888-8888</li>
-                        <li><i class="fas fa-envelope"></i> info@hthia.com</li>
+                        <li><i class="fas fa-phone-alt"></i> +852 8888 8888</li>
+                        <li><i class="fas fa-envelope"></i> info@hkhia.com</li>
                         <li><i class="fas fa-clock"></i> <span data-i18n="workingHours">周一至周五: 9:00 - 18:00</span></li>
                     </ul>
                 </div>
             </div>
-<!--
-            <div class="copyright">
-                <p>&copy; 2023 HIA科技有限公司. <span data-i18n="allRightsReserved">保留所有权利</span> | <span data-i18n="icp">京ICP备12345678号</span></p>
-            </div>
--->
+           
         </div>
     </footer>
+
+    <!-- 弹出窗口 -->
+    <div class="popup-overlay" id="aboutPopup">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h1 class="popup-title" id="popupTitle">协会宗旨</h1>
+                <button class="close-btn" onclick="closePopup()">&times;</button>
+            </div>
+            
+            <div class="popup-content">
+                <div id="popup-zh-CN" class="language-content">
+                    <h2>香港健康科技创新产业协会宗旨</h2>
+                    <ul>
+                        <li>推动香港健康科技创新产业的全面发展，并加强与亚洲及世界各国的联系与交流。</li>
+                        <li>积极引入海外卓越的生物医药创新科技专案与产业，并提供各方面的协助，以进入国内及亚洲市场。</li>
+                        <li>促进生物医药创新科技产业、科研机构、投资业界及政府组织在创新研发、产业化、协调法规政策、投资及融资方面的沟通、交流及合作。</li>
+                        <li>确立香港健康科技创新产业协会的发展方向，促进成员之间的合作与联系。</li>
+                    </ul>
+                </div>
+                
+                <div id="popup-zh-TW" class="language-content" style="display:none">
+                    <h2>香港健康科技創新產業協會宗旨</h2>
+                    <ul>
+                        <li>推動香港健康科技創新產業的全面發展，並加強與亞洲及世界各國的聯繫與交流。</li>
+                        <li>積極引入海外卓越的生物醫藥創新科技專案與產業，並提供各方面的協助，以進入國內及亞洲市場。</li>
+                        <li>促進生物醫藥創新科技產業、科研機構、投資業界及政府組織在創新研發、產業化、協調法規政策、投資及融資方面的溝通、交流及合作。</li>
+                        <li>確立香港健康科技創新產業協會的發展方向，促進成員之間的合作與聯繫。</li>
+                    </ul>
+                </div>
+                
+                <div id="popup-en" class="language-content" style="display:none">
+                    <h2>Objectives of Hong Kong Health Tech Innovation Industry Association</h2>
+                    <ul>
+                        <li>Promote the comprehensive development of Hong Kong's health technology innovation industry and strengthen connections and exchanges with countries in Asia and around the world.</li>
+                        <li>Actively introduce outstanding overseas biomedical innovation technology projects and industries, and provide various assistance to enter the domestic and Asian markets.</li>
+                        <li>Facilitate communication, exchange and cooperation among biomedical innovation technology industries, research institutions, investment communities and government organizations in innovation R&D, industrialization, regulatory policy coordination, investment and financing.</li>
+                        <li>Establish the development direction of the Hong Kong Health Tech Innovation Industry Association and promote cooperation and connections among members.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
@@ -1226,64 +1373,77 @@
         const resources = {
             'zh-CN': {
                 translation: {
-                    "home": "首页",
-                    "services": "服务",
-                    "projects": "项目",
-                    "about": "关于我们",
-                    "testimonials": "客户评价",
+                    "home": "协会宗旨",
+                    "services": "服务项目",
+                    "projects": "最新资讯",
+                    "about": "会员申请",
+                    "testimonials": "工作机会",
+                    "job1Title":"健康科技项目经理",
+                    "job1Desc":"负责统筹健康科技领域的创新项目...",
+                    "job2Title":"政策研究与合规专员",
+                    "job2Desc":"负责监测健康科技政策动态...",
+                    "job3Title":"市场拓展与合作伙伴经理",
+                    "job3Desc":"负责开发并维护协会生态伙伴...",
                     "contact": "联系我们",
-                    "heroTitle": "创新技术解决方案助力企业数字化转型",
-                    "heroText": "我们提供前沿的科技服务和定制化解决方案，帮助企业提升效率、优化流程并实现业务增长",
-                    "exploreBtn": "开始探索",
-                    "learnMoreBtn": "了解更多",
+                    "heroTitle": "香港健科协以科技创新驱动健康美丽产业",
+                    "heroText": "香港健康科技创新产业协会作为非营利机构，立足香港，以科技创新推动健康与美丽产业升级。",
+                    "aboutBtn": "了解更多",
                     "servicesTitle": "我们的专业服务",
-                    "servicesSubtitle": "我们提供全方位的数字解决方案，助力企业在竞争激烈的市场中脱颖而出",
-                    "webDev": "网站开发",
-                    "webDevDesc": "定制化网站设计与开发，响应式布局，确保在所有设备上完美呈现",
-                    "mobileApp": "移动应用",
-                    "mobileAppDesc": "iOS和Android原生应用开发，提供流畅的用户体验和卓越性能",
-                    "cloudSolution": "云解决方案",
-                    "cloudSolutionDesc": "基于云的架构设计、迁移和管理服务，实现灵活扩展和成本优化",
-                    "dataAnalysis": "数据分析",
-                    "dataAnalysisDesc": "数据挖掘、分析和可视化，提供有价值的业务洞察和决策支持",
-                    "cyberSecurity": "网络安全",
-                    "cyberSecurityDesc": "全面的安全评估、渗透测试和防护策略，保障企业数据和系统安全",
-                    "aiSolution": "人工智能",
-                    "aiSolutionDesc": "AI解决方案开发，包括机器学习模型、自然语言处理和智能自动化",
-                    "successProjects": "成功项目",
-                    "customerSatisfaction": "客户满意度",
-                    "professionalTeam": "专业团队",
-                    "industryAwards": "行业奖项",
-                    "projectCases": "精选项目案例",
-                    "projectSubtitle": "探索我们为各行业领先企业打造的成功案例",
-                    "fintechPlatform": "金融科技平台",
-                    "fintechDesc": "为全球金融机构开发的现代化交易和分析平台",
-                    "webApp": "Web应用",
-                    "fintech": "金融科技",
-                    "dataAnalysisTag": "数据分析",
-                    "ecommerceSolution": "电商解决方案",
-                    "ecommerceDesc": "为零售企业打造的全渠道电子商务平台",
-                    "ecommerce": "电子商务",
-                    "mobileAppTag": "移动应用",
-                    "paymentSystem": "支付系统",
-                    "healthSystem": "医疗健康系统",
-                    "healthDesc": "为大型医院集团开发的综合健康管理系统",
-                    "medTech": "医疗技术",
-                    "cloudPlatform": "云平台",
-                    "dataSecurity": "数据安全",
-                    "aboutUs": "关于我们",
+                    "servicesSubtitle": "立足香港，联通国际，我们提供健康科技全产业链服务。",
+                    "webDev": "国际项目落地",
+                    "webDevDesc": "海外生物医药技术引进<br>中国市场准入咨询<br>亚洲商业伙伴匹配",
+                    "mobileApp": "政策与法规支持",
+                    "mobileAppDesc": "监管合规指导<br>产业标准制定<br>政府沟通桥梁",
+                    "cloudSolution": "科技创新加速",
+                    "cloudSolutionDesc": "科研成果产业化<br>知识产权战略<br>技术评估与孵化",
+                    "dataAnalysis": "资本对接服务",
+                    "dataAnalysisDesc": "投融资路演<br>创投机构引荐<br>跨境资金方案",
+                    "cyberSecurity": "行业交流平台",
+                    "cyberSecurityDesc": "国际峰会与论坛<br>专家研讨会<br>企业参访考察",
+                    "aiSolution": "会员专属服务",
+                    "aiSolutionDesc": "行业趋势报告<br>精准业务配对<br>品牌推广支持",
+                    "projectCases": "最新资讯",
+
+                    "projectSubtitle": "聚焦2025年健康科技领域前沿动态",
+                    "news1Title": "AI辅助诊断系统获FDA突破性认证",
+                    "news1Desc": "2025年最新获批系统可同时筛查12种常见癌症，准确率达99.2%",
+                    "news1Date": "2025-07-10",
+                    "news2Title": "香港健康科技产业园正式启用",
+                    "news2Desc": "首期投资50亿港元，已吸引32家国际生物医药企业入驻",
+                    "news2Date": "2025-06-28",
+                    "news3Title": "基因编辑疗法首次治愈遗传性失明",
+                    "news3Desc": "2025年临床试验显示，新型CRISPR技术成功恢复患者80%视力",
+                    "news3Date": "2025-06-15",
+                    "ai": "人工智能",
+                    "medical": "医疗诊断",
+                    "biotech": "生物医药",
+                    "hk": "香港",
+                    "genetherapy": "基因治疗",
+                    "breakthrough": "重大突破",
+
+
+
+                    "aboutUs": "会员申请",
                     "aboutSubtitle": "致力于现代生物医药健康领域，行业奠基石",
-                    "testimonialsTitle": "客户评价",
-                    "testimonialsSubtitle": "听听我们的客户怎么说",
-                    "testimonial1": "\"HIA团队为我们的数字化转型提供了卓越的解决方案。他们的专业知识和创新思维帮助我们提升了30%的运营效率，客户满意度显著提高。\"",
-                    "clientName1": "张雅雯",
-                    "clientPosition1": "创新科技 CEO",
-                    "testimonial2": "\"与HIA合作是一次非常愉快的经历。他们开发的移动应用不仅设计精美，而且性能出色，用户反馈极好，帮助我们拓展了新的市场。\"",
-                    "clientName2": "李明哲",
-                    "clientPosition2": "智行科技 CTO",
-                    "testimonial3": "\"HIA的云解决方案帮助我们实现了IT基础设施的现代化，成本降低了40%，同时系统稳定性和安全性得到了显著提升。\"",
-                    "clientName3": "陈思颖",
-                    "clientPosition3": "未来集团 IT总监",
+                    "testimonialsTitle": "工作机会",
+                    "testimonialsSubtitle": "招贤纳士，共筑健康科技生态",
+                    "eligibilityTitle": "申请资格",
+                    "eligibility1": "从事健康科技相关领域的企业、机构或个人",
+                    "eligibility2": "认同协会宗旨并愿意遵守章程",
+                    "materialsTitle": "申请材料",
+                    "material1": "填写完整的会员申请表",
+                    "material2": "企业营业执照/个人身份证明复印件",
+                    "material3": "公司/个人简介及业务说明",
+                    "procedureTitle": "申请流程",
+                    "step1": "提交申请材料至协会邮箱：info@hkhia.com",
+                    "step2": "协会审核(约5-7个工作日)",
+                    "step3": "审核通过后缴纳会费",
+                    "step4": "正式成为会员，享受各项权益",
+                    "feesTitle": "会费标准",
+                    "fee1": "企业会员：年度会费请咨询秘书处",
+                    "fee2": "个人会员：年度会费请咨询秘书处",
+                    "fee3": "学术机构：享有特别优惠费率",
+                    "applyNow": "立即申请",
                     "contactUs": "联系我们",
                     "nameLabel": "姓名",
                     "namePlaceholder": "请输入您的姓名",
@@ -1300,73 +1460,83 @@
                     "phoneNumber": "联系电话",
                     "email": "电子邮箱",
                     "quickLinks": "快速链接",
-                    "footerAbout": "HIA是一家领先的技术解决方案提供商，致力于帮助企业实现数字化转型和创新增长。",
                     "addressShort": "中国 香港",
-                    "workingHours": "周一至周五: 9:00 - 18:00",
-                    "allRightsReserved": "保留所有权利",
-                    "icp": "京ICP备12345678号"
+                    "workingHours": "周一至周五: 9:00 - 18:00"
                 }
             },
             'zh-TW': {
                 translation: {
-                    "home": "首頁",
-                    "services": "服務",
-                    "projects": "項目",
-                    "about": "關於我們",
-                    "testimonials": "客戶評價",
+                    "home": "協會宗旨",
+                    "services": "服務項目",
+                    "projects": "最新資訊",
+                    "about": "會員申請",
+                    "testimonials": "工作機會",
+                    "job1Title":"健康科技專案經理",  
+                    "job1Desc":"負責統籌健康科技領域的創新專案...",  
+                    "job2Title":"政策研究與合規專員",  
+                    "job2Desc":"負責監測健康科技政策動態...",  
+                    "job3Title":"市場拓展與合作夥伴經理",  
+                    "job3Desc":"負責開發並維護協會生態夥伴...",
                     "contact": "聯繫我們",
-                    "heroTitle": "創新技術解決方案助力企業數字化轉型",
-                    "heroText": "我們提供前沿的科技服務和定制化解決方案，幫助企業提升效率、優化流程並實現業務增長",
-                    "exploreBtn": "開始探索",
-                    "learnMoreBtn": "了解更多",
+                    "heroTitle": "香港健科協以科技創新驅動健康美麗產業",
+                    "heroText": "香港健康科技創新產業協會作為非營利機構，立足香港，以科技創新推動健康與美麗產業升級。",
+                    "aboutBtn": "了解更多",
                     "servicesTitle": "我們的專業服務",
-                    "servicesSubtitle": "我們提供全方位的數字解決方案，助力企業在競爭激烈的市場中脫穎而出",
-                    "webDev": "網站開發",
-                    "webDevDesc": "定制化網站設計與開發，響應式佈局，確保在所有設備上完美呈現",
-                    "mobileApp": "移動應用",
-                    "mobileAppDesc": "iOS和Android原生應用開發，提供流暢的用戶體驗和卓越性能",
-                    "cloudSolution": "雲解決方案",
-                    "cloudSolutionDesc": "基於雲的架構設計、遷移和管理服務，實現靈活擴展和成本優化",
-                    "dataAnalysis": "數據分析",
-                    "dataAnalysisDesc": "數據挖掘、分析和可視化，提供有價值的業務洞察和決策支持",
-                    "cyberSecurity": "網絡安全",
-                    "cyberSecurityDesc": "全面的安全評估、滲透測試和防護策略，保障企業數據和系統安全",
-                    "aiSolution": "人工智能",
-                    "aiSolutionDesc": "AI解決方案開發，包括機器學習模型、自然語言處理和智能自動化",
-                    "successProjects": "成功項目",
-                    "customerSatisfaction": "客戶滿意度",
-                    "professionalTeam": "專業團隊",
-                    "industryAwards": "行業獎項",
-                    "projectCases": "精選項目案例",
-                    "projectSubtitle": "探索我們為各行業領先企業打造的成功案例",
-                    "fintechPlatform": "金融科技平台",
-                    "fintechDesc": "為全球金融機構開發的現代化交易和分析平台",
-                    "webApp": "Web應用",
-                    "fintech": "金融科技",
-                    "dataAnalysisTag": "數據分析",
-                    "ecommerceSolution": "電商解決方案",
-                    "ecommerceDesc": "為零售企業打造的全渠道電子商務平台",
-                    "ecommerce": "電子商務",
-                    "mobileAppTag": "移動應用",
-                    "paymentSystem": "支付系統",
-                    "healthSystem": "醫療健康系統",
-                    "healthDesc": "為大型醫院集團開發的綜合健康管理系統",
-                    "medTech": "醫療技術",
-                    "cloudPlatform": "雲平台",
-                    "dataSecurity": "數據安全",
-                    "aboutUs": "關於我們",
+                    "servicesSubtitle": "立足香港，聯通國際，我們提供健康科技全產業鏈服務。",
+                    "webDev": "國際項目落地",
+                    "webDevDesc": "海外生物醫藥技術引進<br>中國市場准入諮詢<br>亞洲商業夥伴匹配",
+                    "mobileApp": "政策與法規支持",
+                    "mobileAppDesc": "監管合規指導<br>產業標準制定<br>政府溝通橋樑",
+                    "cloudSolution": "科技創新加速",
+                    "cloudSolutionDesc": "科研成果產業化<br>知識產權戰略<br>技術評估與孵化",
+                    "dataAnalysis": "資本對接服務",
+                    "dataAnalysisDesc": "投融資路演<br>創投機構引薦<br>跨境資金方案",
+                    "cyberSecurity": "行業交流平台",
+                    "cyberSecurityDesc": "國際峰會與論壇<br>專家研討會<br>企業參訪考察",
+                    "aiSolution": "會員專屬服務",
+                    "aiSolutionDesc": "行業趨勢報告<br>精準業務配對<br>品牌推廣支持",
+                    "projectCases": "最新資訊",
+
+
+                    "projectSubtitle": "聚焦2025年健康科技領域前沿動態",
+                    "news1Title": "AI輔助診斷系統獲FDA突破性認證",
+                    "news1Desc": "2025年最新獲批系統可同時篩查12種常見癌症，準確率達99.2%",
+                    "news1Date": "2025-07-10",
+                    "news2Title": "香港健康科技產業園正式啟用",
+                    "news2Desc": "首期投資50億港元，已吸引32家國際生物醫藥企業入駐",
+                    "news2Date": "2025-06-28",
+                    "news3Title": "基因編輯療法首次治癒遺傳性失明",
+                    "news3Desc": "2025年臨床試驗顯示，新型CRISPR技術成功恢復患者80%視力",
+                    "news3Date": "2025-06-15",
+                    "ai": "人工智能",
+                    "medical": "醫療診斷",
+                    "biotech": "生物醫藥",
+                    "hk": "香港",
+                    "genetherapy": "基因治療",
+                    "breakthrough": "重大突破",
+
+
+                    "aboutUs": "會員申請",
                     "aboutSubtitle": "致力於現代生物醫藥健康領域，行業奠基石",
-                    "testimonialsTitle": "客戶評價",
-                    "testimonialsSubtitle": "聽聽我們的客戶怎麼說",
-                    "testimonial1": "\"HIA團隊為我們的數字化轉型提供了卓越的解決方案。他們的專業知識和創新思維幫助我們提升了30%的運營效率，客戶滿意度顯著提高。\"",
-                    "clientName1": "張雅雯",
-                    "clientPosition1": "創新科技 CEO",
-                    "testimonial2": "\"與HIA合作是一次非常愉快的經歷。他們開發的移動應用不僅設計精美，而且性能出色，用戶反饋極好，幫助我們拓展了新的市場。\"",
-                    "clientName2": "李明哲",
-                    "clientPosition2": "智行科技 CTO",
-                    "testimonial3": "\"HIA的雲解決方案幫助我們實現了IT基礎設施的現代化，成本降低了40%，同時系統穩定性和安全性得到了顯著提升。\"",
-                    "clientName3": "陳思穎",
-                    "clientPosition3": "未來集團 IT總監",
+                    "testimonialsTitle": "工作機會",
+                    "eligibilityTitle": "申請資格",
+                    "eligibility1": "從事健康科技相關領域的企業、機構或個人",
+                    "eligibility2": "認同協會宗旨並願意遵守章程",
+                    "materialsTitle": "申請材料",
+                    "material1": "填寫完整的會員申請表",
+                    "material2": "企業營業執照/個人身份證明複印件",
+                    "material3": "公司/個人簡介及業務說明",
+                    "procedureTitle": "申請流程",
+                    "step1": "提交申請材料至協會郵箱：info@hkhia.com",
+                    "step2": "協會審核(約5-7個工作日)",
+                    "step3": "審核通過後繳納會費",
+                    "step4": "正式成為會員，享受各項權益",
+                    "feesTitle": "會費標準",
+                    "fee1": "企業會員：年度會費請咨詢秘書處",
+                    "fee2": "個人會員：年度會費請咨詢秘書處",
+                    "fee3": "學術機構：享有特別優惠費率",
+                    "applyNow": "立即申請",
+                    "testimonialsSubtitle": "招賢納士，共築健康科技生態",
                     "contactUs": "聯繫我們",
                     "nameLabel": "姓名",
                     "namePlaceholder": "請輸入您的姓名",
@@ -1379,77 +1549,88 @@
                     "sendMessage": "發送消息",
                     "contactInfo": "聯繫方式",
                     "companyAddress": "公司地址",
-                    "addressDetail": "北京市海淀區科技園區88號創新大廈15層",
+                    "addressDetail": "中国 香港",
                     "phoneNumber": "聯繫電話",
                     "email": "電子郵箱",
                     "quickLinks": "快速鏈接",
-                    "footerAbout": "HIA是一家領先的技術解決方案提供商，致力於幫助企業實現數字化轉型和創新增長。",
-                    "addressShort": "中国 香港",
-                    "workingHours": "週一至週五: 9:00 - 18:00",
-                    "allRightsReserved": "保留所有權利",
-                    "icp": "京ICP備12345678號"
+                    "addressShort": "中國 香港",
+                    "workingHours": "週一至週五: 9:00 - 18:00"
                 }
             },
             'en': {
                 translation: {
-                    "home": "Home",
+                    "home": "Association Mission",
                     "services": "Services",
-                    "projects": "Projects",
-                    "about": "About Us",
-                    "testimonials": "Testimonials",
-                    "contact": "Contact",
-                    "heroTitle": "Innovative Technology Solutions for Digital Transformation",
-                    "heroText": "We provide cutting-edge technology services and customized solutions to help businesses improve efficiency, optimize processes and achieve growth",
-                    "exploreBtn": "Get Started",
-                    "learnMoreBtn": "Learn More",
+                    "projects": "Latest News",
+                    "about": "Membership",
+                    "testimonials": "Careers",
+                    "job1Title":"Health Technology Project Manager",  
+                    "job1Desc":"Responsible for coordinating innovative projects in the health technology field...",  
+                    "job2Title":"Policy Research and Compliance Officer",  
+                    "job2Desc":"Responsible for monitoring health technology policy developments...",  
+                    "job3Title":"Market Expansion and Partnerships Manager",  
+                    "job3Desc":"Responsible for developing and maintaining ecosystem partnerships...",
+                    "contact": "Contact Us",
+                    "heroTitle": "HKHIA Drives Health and Beauty Industry with Technological Innovation",
+                    "heroText": "As a non-profit organization based in Hong Kong, the Hong Kong Health Tech Innovation Association promotes the upgrading of health and beauty industries through technological innovation.",
+                    "aboutBtn": "Learn More",
                     "servicesTitle": "Our Professional Services",
-                    "servicesSubtitle": "We provide comprehensive digital solutions to help companies stand out in a competitive market",
-                    "webDev": "Web Development",
-                    "webDevDesc": "Custom website design and development with responsive layout to ensure perfect presentation on all devices",
-                    "mobileApp": "Mobile Applications",
-                    "mobileAppDesc": "iOS and Android native app development providing smooth user experience and excellent performance",
-                    "cloudSolution": "Cloud Solutions",
-                    "cloudSolutionDesc": "Cloud-based architecture design, migration and management services for flexible scaling and cost optimization",
-                    "dataAnalysis": "Data Analysis",
-                    "dataAnalysisDesc": "Data mining, analysis and visualization to provide valuable business insights and decision support",
-                    "cyberSecurity": "Cyber Security",
-                    "cyberSecurityDesc": "Comprehensive security assessment, penetration testing and protection strategies to safeguard corporate data and systems",
-                    "aiSolution": "Artificial Intelligence",
-                    "aiSolutionDesc": "AI solution development including machine learning models, natural language processing and intelligent automation",
-                    "successProjects": "Successful Projects",
-                    "customerSatisfaction": "Customer Satisfaction",
-                    "professionalTeam": "Professional Team",
-                    "industryAwards": "Industry Awards",
-                    "projectCases": "Featured Project Cases",
-                    "projectSubtitle": "Explore our successful cases created for leading companies across industries",
-                    "fintechPlatform": "Fintech Platform",
-                    "fintechDesc": "Modern trading and analytics platform developed for global financial institutions",
-                    "webApp": "Web Application",
-                    "fintech": "Fintech",
-                    "dataAnalysisTag": "Data Analysis",
-                    "ecommerceSolution": "E-commerce Solution",
-                    "ecommerceDesc": "Omnichannel e-commerce platform built for retail businesses",
-                    "ecommerce": "E-commerce",
-                    "mobileAppTag": "Mobile App",
-                    "paymentSystem": "Payment System",
-                    "healthSystem": "Healthcare System",
-                    "healthDesc": "Comprehensive health management system developed for large hospital groups",
-                    "medTech": "Medical Technology",
-                    "cloudPlatform": "Cloud Platform",
-                    "dataSecurity": "Data Security",
-                    "aboutUs": "About Us",
+                    "servicesSubtitle": "Based in Hong Kong with global connections, we provide full-chain services for health technology.",
+                    "webDev": "International Project Implementation",
+                    "webDevDesc": "Overseas biomedical technology introduction<br>China market access consultation<br>Asian business partner matching",
+                    "mobileApp": "Policy & Regulatory Support",
+                    "mobileAppDesc": "Regulatory compliance guidance<br>Industry standard formulation<br>Government communication bridge",
+                    "cloudSolution": "Tech Innovation Acceleration",
+                    "cloudSolutionDesc": "Research achievement industrialization<br>Intellectual property strategy<br>Technology evaluation and incubation",
+                    "dataAnalysis": "Capital Connection Services",
+                    "dataAnalysisDesc": "Investment roadshows<br>Venture capital referrals<br>Cross-border financing solutions",
+                    "cyberSecurity": "Industry Exchange Platform",
+                    "cyberSecurityDesc": "International summits and forums<br>Expert seminars<br>Corporate visits",
+                    "aiSolution": "Exclusive Member Services",
+                    "aiSolutionDesc": "Industry trend reports<br>Precise business matching<br>Brand promotion support",
+                    "projectCases": "Latest News",
+                    
+                    
+                    "projectSubtitle": "Focus on the latest developments in health tech in 2025",
+                    "news1Title": "AI Diagnostic System Receives FDA Breakthrough Designation",
+                    "news1Desc": "Newly approved 2025 system can screen for 12 common cancers simultaneously with 99.2% accuracy",
+                    "news1Date": "2025-07-10",
+                    "news2Title": "Hong Kong Health Tech Park Officially Launched",
+                    "news2Desc": "Initial investment of HK$5 billion, attracting 32 international biopharmaceutical companies",
+                    "news2Date": "2025-06-28",
+                    "news3Title": "Gene Editing Therapy Cures Inherited Blindness for First Time",
+                    "news3Desc": "2025 clinical trials show new CRISPR technology restored 80% of patients' vision",
+                    "news3Date": "2025-06-15",
+                    "ai": "AI",
+                    "medical": "Medical",
+                    "biotech": "Biotech",
+                    "hk": "Hong Kong",
+                    "genetherapy": "Gene Therapy",
+                    "breakthrough": "Breakthrough",
+
+
+
+                    "aboutUs": "Membership",
                     "aboutSubtitle": "Dedicated to modern biomedical health field, the cornerstone of the industry",
-                    "testimonialsTitle": "Testimonials",
-                    "testimonialsSubtitle": "What our clients say about us",
-                    "testimonial1": "\"HIA team provided excellent solutions for our digital transformation. Their expertise and innovative thinking helped us improve operational efficiency by 30% and significantly increase customer satisfaction.\"",
-                    "clientName1": "Zhang Yawen",
-                    "clientPosition1": "CEO, Innovation Tech",
-                    "testimonial2": "\"Working with HIA was a very pleasant experience. The mobile app they developed is not only beautifully designed but also performs excellently, with great user feedback that helped us expand into new markets.\"",
-                    "clientName2": "Li Mingzhe",
-                    "clientPosition2": "CTO, SmartGo Tech",
-                    "testimonial3": "\"HIA's cloud solutions helped us modernize our IT infrastructure, reducing costs by 40% while significantly improving system stability and security.\"",
-                    "clientName3": "Chen Siying",
-                    "clientPosition3": "IT Director, Future Group",
+                    "testimonialsTitle": "Career Opportunities",
+                    "testimonialsSubtitle": "Join us to build a health tech ecosystem",
+                    "eligibilityTitle": "Eligibility",
+                    "eligibility1": "Enterprises, institutions or individuals in health technology related fields",
+                    "eligibility2": "Agree with the association's mission and willing to comply with the charter",
+                    "materialsTitle": "Required Materials",
+                    "material1": "Completed membership application form",
+                    "material2": "Copy of business license/personal ID",
+                    "material3": "Company/personal profile and business description",
+                    "procedureTitle": "Application Procedure",
+                    "step1": "Submit application materials to: info@hkhia.com",
+                    "step2": "Association review (approx. 5-7 working days)",
+                    "step3": "Pay membership fee upon approval",
+                    "step4": "Become an official member and enjoy all benefits",
+                    "feesTitle": "Membership Fees",
+                    "fee1": "Corporate member: Annual fee - please consult the secretariat",
+                    "fee2": "Individual member: Annual fee - please consult the secretariat",
+                    "fee3": "Academic institutions: Special discounted rates available",
+                    "applyNow": "Apply Now",
                     "contactUs": "Contact Us",
                     "nameLabel": "Name",
                     "namePlaceholder": "Please enter your name",
@@ -1462,26 +1643,15 @@
                     "sendMessage": "Send Message",
                     "contactInfo": "Contact Information",
                     "companyAddress": "Company Address",
-                    "addressDetail": "15F, Innovation Building, No.88 Technology Park, Haidian District, Beijing",
+                    "addressDetail": "Hong Kong, China",
                     "phoneNumber": "Phone Number",
                     "email": "Email",
                     "quickLinks": "Quick Links",
-                    "footerAbout": "HIA is a leading technology solutions provider committed to helping businesses achieve digital transformation and innovative growth.",
-                    "addressShort": "Hong Kong China",
-                    "workingHours": "Monday to Friday: 9:00 - 18:00",
-                    "allRightsReserved": "All Rights Reserved",
-                    "icp": "ICP No.12345678"
+                    "addressShort": "Hong Kong, China",
+                    "workingHours": "Monday to Friday: 9:00 - 18:00"
                 }
             }
         };
-
-        // 检测移动设备
-        function isMobileDevice() {
-            return (typeof window.orientation !== "undefined") || 
-                   (navigator.userAgent.indexOf('IEMobile') !== -1) ||
-                   (window.innerWidth <= 768);
-        }
-
         // 初始化i18next
         i18next
             .use(i18nextBrowserLanguageDetector)
@@ -1489,170 +1659,197 @@
                 resources,
                 fallbackLng: 'zh-CN',
                 debug: false,
-                interpolation: { escapeValue: false }
-            }, initApp);
-
-        function initApp() {
-            // 设置语言切换器
-            setupLanguageSwitcher();
-            
-            // 优化移动端体验
-            optimizeLanguageSwitcher();
-            
-            // 更新内容
-            updateContent();
-            
-            // 检查存储的语言偏好
-            const savedLanguage = localStorage.getItem('userLanguage');
-            if (savedLanguage) {
-                i18next.changeLanguage(savedLanguage);
-            }
-            
-            // 初始化轮播等其他功能
-            initSwiper();
-            
-            // 初始化其他事件监听
-            initEventListeners();
-        }
-
-        function setupLanguageSwitcher() {
-            document.querySelectorAll('.lang-icon').forEach(icon => {
-                // 移除旧的事件监听器
-                icon.removeEventListener('click', handleLanguageSwitch);
-                icon.removeEventListener('touchend', handleLanguageSwitch);
-                
-                // 添加新的事件监听器
-                icon.addEventListener('click', handleLanguageSwitch);
-                icon.addEventListener('touchend', handleLanguageSwitch);
-            });
-        }
-
-        function handleLanguageSwitch(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // 防止快速连续点击
-            if (this.classList.contains('clicked')) return;
-            this.classList.add('clicked');
-            
-            setTimeout(() => {
-                this.classList.remove('clicked');
-            }, 500);
-            
-            const lang = this.getAttribute('data-lang');
-            i18next.changeLanguage(lang, () => {
+                interpolation: {
+                    escapeValue: false
+                }
+            }, function(err, t) {
+                // 初始化完成后更新内容
                 updateContent();
-                localStorage.setItem('userLanguage', lang);
-                updateActiveLangButton();
             });
-        }
 
-        function updateActiveLangButton() {
+        // 更新页面内容
+        function updateContent() {
+            // 更新所有带有data-i18n属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                
+                // 处理placeholder属性
+                if (element.hasAttribute('placeholder')) {
+                    element.setAttribute('placeholder', i18next.t(key));
+                } 
+                // 处理其他文本内容
+                else {
+                    element.innerHTML  = i18next.t(key);
+                }
+            });
+            
+            // 更新按钮状态
             document.querySelectorAll('.lang-icon').forEach(icon => {
                 icon.classList.remove('active');
                 if (icon.getAttribute('data-lang') === i18next.language) {
                     icon.classList.add('active');
                 }
             });
+
+            // 更新弹出窗口内容
+            updatePopupContent();
         }
 
-        function updateContent() {
-            // 更新所有带有data-i18n属性的元素
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                
-                if (element.hasAttribute('placeholder')) {
-                    element.setAttribute('placeholder', i18next.t(key));
-                } else {
-                    element.textContent = i18next.t(key);
-                }
-            });
+        // 更新弹出窗口内容
+        function updatePopupContent() {
+            const popupContents = document.querySelectorAll('#aboutPopup .language-content');
+            popupContents.forEach(content => content.style.display = 'none');
             
-            updateActiveLangButton();
-        }
-
-        function optimizeLanguageSwitcher() {
-            if (isMobileDevice()) {
-                // 隐藏导航栏中的语言切换（如果存在）
-                const navLangSwitcher = document.querySelector('.navbar .language-icons');
-                if (navLangSwitcher) {
-                    navLangSwitcher.style.display = 'none';
-                }
-                
-                // 添加浮动语言切换按钮（如果不存在）
-                if (!document.querySelector('.language-icons.floating')) {
-                    const floatingLangSwitcher = document.createElement('div');
-                    floatingLangSwitcher.className = 'language-icons floating';
-                    floatingLangSwitcher.innerHTML = `
-                        <button class="lang-icon" data-lang="zh-CN" aria-label="简体中文">简</button>
-                        <button class="lang-icon" data-lang="zh-TW" aria-label="繁體中文">繁</button>
-                        <button class="lang-icon" data-lang="en" aria-label="English">EN</button>
-                    `;
-                    document.body.appendChild(floatingLangSwitcher);
-                    
-                    // 设置初始激活状态
-                    updateActiveLangButton();
-                    
-                    // 设置事件
-                    setupLanguageSwitcher();
-                }
+            let contentToShow;
+            switch(i18next.language) {
+                case 'zh-CN':
+                    contentToShow = document.getElementById('popup-zh-CN');
+                    document.querySelector('#aboutPopup .popup-title').textContent = '协会宗旨';
+                    break;
+                case 'en':
+                    contentToShow = document.getElementById('popup-en');
+                    document.querySelector('#aboutPopup .popup-title').textContent = 'Objectives';
+                    break;
+                default: // 默认繁体中文
+                    contentToShow = document.getElementById('popup-zh-TW');
+                    document.querySelector('#aboutPopup .popup-title').textContent = '協會宗旨';
+            }
+            
+            if(contentToShow) {
+                contentToShow.style.display = 'block';
             }
         }
 
-        function initSwiper() {
-            // 轮播图初始化
-            new Swiper('.swiper', {
-                loop: true,
-                autoplay: { 
-                    delay: 5000,
-                    disableOnInteraction: false 
-                },
-                pagination: { 
-                    el: '.swiper-pagination',
-                    clickable: true 
-                },
-                navigation: { 
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
-                }
-            });
-        }
+        let currentLanguage = '';
 
-        function initEventListeners() {
-            // 平滑滚动效果
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
+        // 语言切换事件
+        document.querySelectorAll('.lang-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                i18next.changeLanguage(lang, () => {
+                    updateContent();
+                    // 存储用户语言选择
+                    localStorage.setItem('userLanguage', lang);
+                    currentLanguage = lang;
                 });
             });
-            
-            // 导航栏滚动效果
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('header');
-                if (window.scrollY > 100) {
-                    header.style.backgroundColor = '#fff';
-                    header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
-                } else {
-                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-                    header.style.boxShadow = 'none';
-                }
-            });
-            
-            // 服务卡片动画效果
-            const serviceCards = document.querySelectorAll('.service-card');
-            serviceCards.forEach((card, index) => {
-                card.style.transitionDelay = `${index * 0.1}s`;
-            });
+        });
+
+        // 检查是否有存储的语言偏好
+        const savedLanguage = localStorage.getItem('userLanguage');
+        if (savedLanguage) {
+            i18next.changeLanguage(savedLanguage);
         }
 
-        // 页面加载完成后初始化应用
-        document.addEventListener('DOMContentLoaded', initApp);
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = '#fff';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        // 服务卡片动画效果
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        /*首页图片轮换*/
+        document.addEventListener('DOMContentLoaded', function() {
+            const swiper = new Swiper('.swiper', {
+                // 可选参数
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        });
+
+        // 弹出窗口功能
+        function openAboutPopup() {
+            const popup = document.getElementById('aboutPopup');
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            updatePopupContent();
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('aboutPopup');
+            popup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击弹出窗口外部关闭
+        document.getElementById('aboutPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // ESC键关闭弹出窗口
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+        });
+
+
+
+        //let currentLanguage = '';
+        
+        // Language selection
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentLanguage = this.getAttribute('data-lang');
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                // Update job listings based on language (you would need to implement this)
+                updateJobListings(currentLanguage);
+            });
+        });
+        
+        // Job card click handler
+        document.querySelectorAll('.job-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const jobId = this.getAttribute('data-job');
+                openJobPopup(jobId, currentLanguage);
+            });
+        });
+        
+        function openJobPopup(jobId, lang) {
+            const features = 'width=900,height=700,scrollbars=yes';
+            const popup = window.open('position.html?job=' + jobId + '&lang=' + lang, 'jobPopup', features);
+            
+            // Focus the popup if it exists
+            if (popup) {
+                popup.focus();
+            }
+        }
     </script>
 </body>
 </html>

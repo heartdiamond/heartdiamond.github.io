@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职位详情 - Position Details</title>
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .popup-container {
+            background-color: white;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .popup-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .popup-title {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .popup-content {
+            padding: 20px;
+        }
+        
+        .job-details h2 {
+            color: #2a6496;
+            margin-top: 0;
+        }
+        
+        .job-details h3 {
+            color: #444;
+            margin-bottom: 10px;
+        }
+        
+        .job-details ul {
+            padding-left: 20px;
+        }
+        
+        .job-details li {
+            margin-bottom: 8px;
+        }
+        
+        .apply-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #2a6496;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .apply-btn:hover {
+            background-color: #1d4b75;
+        }
+        
+        .language-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .language-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+            background-color: #f5f5f5;
+        }
+        
+        .language-tab.active {
+            background-color: white;
+            border-color: #ddd;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+            font-weight: bold;
+        }
+        
+        .language-content {
+            display: none;
+        }
+        
+        .language-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Health Tech Project Manager -->
+    <div class="popup-overlay" id="job1Popup">
+        <div class="popup-container job-popup">
+            <div class="popup-header">
+                <h1 class="popup-title">健康科技项目经理 / 健康科技項目經理 / Health Tech Project Manager</h1>
+                <button class="close-btn" onclick="closeJobPopup()">&times;</button>
+            </div>
+            <div class="popup-content">
+                <div class="language-tabs">
+                    <div class="language-tab" data-lang="zh-CN">简体中文</div>
+                    <div class="language-tab" data-lang="zh-TW">繁體中文</div>
+                    <div class="language-tab" data-lang="en">English</div>
+                </div>
+                
+                <div class="job-details">
+                    <!-- Simplified Chinese -->
+                    <div class="language-content" data-lang="zh-CN">
+                        <h2>职位概述</h2>
+                        <p>我们正在寻找一位经验丰富的健康科技项目经理，负责统筹协会内健康科技领域的创新项目，推动从概念到落地的全流程管理。</p>
+                        
+                        <h3>主要职责</h3>
+                        <ul>
+                            <li>统筹健康科技领域的创新项目（如数字医疗、AI诊断、远程监测等）</li>
+                            <li>对接政府、医疗机构、高校及企业资源，搭建产学研合作平台</li>
+                            <li>负责项目预算、进度及风险管理，确保符合香港及大湾区医疗法规要求</li>
+                            <li>协调跨领域团队，确保项目按时高质量交付</li>
+                            <li>评估项目成果并制定持续改进计划</li>
+                        </ul>
+                        
+                        <h3>任职要求</h3>
+                        <ul>
+                            <li>本科及以上学历，生物医学工程、公共卫生、项目管理等相关专业</li>
+                            <li>5年以上健康科技或相关领域项目管理经验</li>
+                            <li>熟悉香港及大湾区医疗健康产业政策和法规</li>
+                            <li>出色的沟通协调能力和团队管理能力</li>
+                            <li>中英文流利，具备跨文化沟通能力</li>
+                        </ul>
+                        
+                        <h3>我们提供的福利</h3>
+                        <ul>
+                            <li>具有竞争力的薪资和奖金</li>
+                            <li>灵活的工作时间和远程工作机会</li>
+                            <li>专业发展和培训支持</li>
+                            <li>健康保险和福利计划</li>
+                            <li>参与国际性健康科技项目的机会</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=申请健康科技项目经理职位（简体）" class="apply-btn">立即申请</a>
+                    </div>
+                    
+                    <!-- Traditional Chinese -->
+                    <div class="language-content" data-lang="zh-TW">
+                        <h2>職位概述</h2>
+                        <p>我們正在尋找一位經驗豐富的健康科技項目經理，負責統籌協會內健康科技領域的創新項目，推動從概念到落地的全流程管理。</p>
+                        
+                        <h3>主要職責</h3>
+                        <ul>
+                            <li>統籌健康科技領域的創新項目（如數字醫療、AI診斷、遠程監測等）</li>
+                            <li>對接政府、醫療機構、高校及企業資源，搭建產學研合作平台</li>
+                            <li>負責項目預算、進度及風險管理，確保符合香港及大灣區醫療法規要求</li>
+                            <li>協調跨領域團隊，確保項目按時高質量交付</li>
+                            <li>評估項目成果並制定持續改進計劃</li>
+                        </ul>
+                        
+                        <h3>任職要求</h3>
+                        <ul>
+                            <li>本科及以上學歷，生物醫學工程、公共衛生、項目管理等相關專業</li>
+                            <li>5年以上健康科技或相關領域項目管理經驗</li>
+                            <li>熟悉香港及大灣區醫療健康產業政策和法規</li>
+                            <li>出色的溝通協調能力和團隊管理能力</li>
+                            <li>中英文流利，具備跨文化溝通能力</li>
+                        </ul>
+                        
+                        <h3>我們提供的福利</h3>
+                        <ul>
+                            <li>具有競爭力的薪資和獎金</li>
+                            <li>靈活的工作時間和遠程工作機會</li>
+                            <li>專業發展和培訓支持</li>
+                            <li>健康保險和福利計劃</li>
+                            <li>參與國際性健康科技項目的機會</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=申請健康科技項目經理職位（繁體）" class="apply-btn">立即申請</a>
+                    </div>
+                    
+                    <!-- English -->
+                    <div class="language-content" data-lang="en">
+                        <h2>Position Overview</h2>
+                        <p>We are seeking an experienced Health Tech Project Manager to oversee innovative projects in the health technology sector within our association, managing the entire process from concept to implementation.</p>
+                        
+                        <h3>Key Responsibilities</h3>
+                        <ul>
+                            <li>Coordinate innovative projects in health technology (e.g., digital healthcare, AI diagnostics, remote monitoring)</li>
+                            <li>Connect government, medical institutions, universities, and enterprise resources to build industry-academia-research collaboration platforms</li>
+                            <li>Manage project budgets, schedules, and risk to ensure compliance with Hong Kong and Greater Bay Area healthcare regulations</li>
+                            <li>Coordinate cross-functional teams to ensure timely and high-quality project delivery</li>
+                            <li>Evaluate project outcomes and develop continuous improvement plans</li>
+                        </ul>
+                        
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Bachelor's degree or above in Biomedical Engineering, Public Health, Project Management or related fields</li>
+                            <li>5+ years of project management experience in health tech or related fields</li>
+                            <li>Familiarity with healthcare policies and regulations in Hong Kong and the Greater Bay Area</li>
+                            <li>Excellent communication, coordination, and team management skills</li>
+                            <li>Fluency in both English and Chinese, with cross-cultural communication ability</li>
+                        </ul>
+                        
+                        <h3>Benefits We Offer</h3>
+                        <ul>
+                            <li>Competitive salary and bonus</li>
+                            <li>Flexible working hours and remote work opportunities</li>
+                            <li>Professional development and training support</li>
+                            <li>Health insurance and benefits package</li>
+                            <li>Opportunity to participate in international health tech projects</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=Application for Health Tech Project Manager Position" class="apply-btn">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Policy Research & Compliance Specialist -->
+    <div class="popup-overlay" id="job2Popup">
+        <div class="popup-container job-popup">
+            <div class="popup-header">
+                <h1 class="popup-title">政策研究与合规专员 / 政策研究與合規專員 / Policy Research & Compliance Specialist</h1>
+                <button class="close-btn" onclick="closeJobPopup()">&times;</button>
+            </div>
+            <div class="popup-content">
+                <div class="language-tabs">
+                    <div class="language-tab" data-lang="zh-CN">简体中文</div>
+                    <div class="language-tab" data-lang="zh-TW">繁體中文</div>
+                    <div class="language-tab" data-lang="en">English</div>
+                </div>
+                
+                <div class="job-details">
+                    <!-- Simplified Chinese -->
+                    <div class="language-content" data-lang="zh-CN">
+                        <h2>职位概述</h2>
+                        <p>我们正在寻找一位政策研究与合规专员，负责监测健康科技政策动态，为协会成员提供合规指导，并参与产业标准制定。</p>
+                        
+                        <h3>主要职责</h3>
+                        <ul>
+                            <li>监测香港、内地及国际健康科技政策动态（如数据隐私、医疗器械认证）</li>
+                            <li>撰写行业白皮书，向政府建言献策，推动有利创新的政策出台</li>
+                            <li>组织合规培训，协助企业应对GDPR、HIPAA等国际标准</li>
+                            <li>参与健康科技产业标准制定工作</li>
+                            <li>为会员企业提供法规咨询服务</li>
+                        </ul>
+                        
+                        <h3>任职要求</h3>
+                        <ul>
+                            <li>法律、公共卫生、公共政策或相关领域本科及以上学历</li>
+                            <li>3年以上政策研究或合规相关工作经验</li>
+                            <li>熟悉医疗健康领域法规和监管要求</li>
+                            <li>优秀的分析能力和写作能力</li>
+                            <li>中英文流利，能够阅读和理解法律文件</li>
+                        </ul>
+                        
+                        <h3>我们提供的福利</h3>
+                        <ul>
+                            <li>具有竞争力的薪资和奖金</li>
+                            <li>与政府机构和行业领袖合作的机会</li>
+                            <li>参与国际会议和培训</li>
+                            <li>全面的健康保险计划</li>
+                            <li>灵活的工作安排</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=申请政策研究与合规专员职位（简体）" class="apply-btn">立即申请</a>
+                    </div>
+                    
+                    <!-- Traditional Chinese -->
+                    <div class="language-content" data-lang="zh-TW">
+                        <h2>職位概述</h2>
+                        <p>我們正在尋找一位政策研究與合規專員，負責監測健康科技政策動態，為協會成員提供合規指導，並參與產業標準制定。</p>
+                        
+                        <h3>主要職責</h3>
+                        <ul>
+                            <li>監測香港、內地及國際健康科技政策動態（如數據隱私、醫療器械認證）</li>
+                            <li>撰寫行業白皮書，向政府建言獻策，推動有利創新的政策出台</li>
+                            <li>組織合規培訓，協助企業應對GDPR、HIPAA等國際標準</li>
+                            <li>參與健康科技產業標準制定工作</li>
+                            <li>為會員企業提供法規咨詢服務</li>
+                        </ul>
+                        
+                        <h3>任職要求</h3>
+                        <ul>
+                            <li>法律、公共衛生、公共政策或相關領域本科及以上學歷</li>
+                            <li>3年以上政策研究或合規相關工作經驗</li>
+                            <li>熟悉醫療健康領域法規和監管要求</li>
+                            <li>優秀的分析能力和寫作能力</li>
+                            <li>中英文流利，能夠閱讀和理解法律文件</li>
+                        </ul>
+                        
+                        <h3>我們提供的福利</h3>
+                        <ul>
+                            <li>具有競爭力的薪資和獎金</li>
+                            <li>與政府機構和行業領袖合作的機會</li>
+                            <li>參與國際會議和培訓</li>
+                            <li>全面的健康保險計劃</li>
+                            <li>靈活的工作安排</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=申請政策研究與合規專員職位（繁體）" class="apply-btn">立即申請</a>
+                    </div>
+                    
+                    <!-- English -->
+                    <div class="language-content" data-lang="en">
+                        <h2>Position Overview</h2>
+                        <p>We are seeking a Policy Research & Compliance Specialist to monitor health tech policy developments, provide compliance guidance to association members, and participate in industry standard setting.</p>
+                        
+                        <h3>Key Responsibilities</h3>
+                        <ul>
+                            <li>Monitor health tech policy developments in Hong Kong, mainland China, and internationally (e.g., data privacy, medical device certification)</li>
+                            <li>Prepare industry white papers and provide policy recommendations to government</li>
+                            <li>Organize compliance training to help companies meet international standards like GDPR and HIPAA</li>
+                            <li>Participate in health tech industry standard setting</li>
+                            <li>Provide regulatory consulting services to member companies</li>
+                        </ul>
+                        
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Bachelor's degree or above in Law, Public Health, Public Policy or related fields</li>
+                            <li>3+ years of experience in policy research or compliance</li>
+                            <li>Familiarity with healthcare regulations and compliance requirements</li>
+                            <li>Excellent analytical and writing skills</li>
+                            <li>Fluency in both English and Chinese, with ability to read and understand legal documents</li>
+                        </ul>
+                        
+                        <h3>Benefits We Offer</h3>
+                        <ul>
+                            <li>Competitive salary and bonus</li>
+                            <li>Opportunity to work with government agencies and industry leaders</li>
+                            <li>Participation in international conferences and training</li>
+                            <li>Comprehensive health insurance plan</li>
+                            <li>Flexible work arrangements</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=Application for Policy Research & Compliance Specialist Position" class="apply-btn">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business Development & Partnership Manager -->
+    <div class="popup-overlay" id="job3Popup">
+        <div class="popup-container job-popup">
+            <div class="popup-header">
+                <h1 class="popup-title">市场拓展与合作伙伴经理 / 市場拓展與合作夥伴經理 / Business Development & Partnership Manager</h1>
+                <button class="close-btn" onclick="closeJobPopup()">&times;</button>
+            </div>
+            <div class="popup-content">
+                <div class="language-tabs">
+                    <div class="language-tab" data-lang="zh-CN">简体中文</div>
+                    <div class="language-tab" data-lang="zh-TW">繁體中文</div>
+                    <div class="language-tab" data-lang="en">English</div>
+                </div>
+                
+                <div class="job-details">
+                    <!-- Simplified Chinese -->
+                    <div class="language-content" data-lang="zh-CN">
+                        <h2>职位概述</h2>
+                        <p>我们正在寻找一位充满激情的市场拓展与合作伙伴经理，负责开发并维护协会生态伙伴，策划行业活动，并推动健康科技解决方案的市场应用。</p>
+                        
+                        <h3>主要职责</h3>
+                        <ul>
+                            <li>开发并维护协会生态伙伴（药企、保险、科技公司等）</li>
+                            <li>策划行业峰会、路演及投融资对接活动</li>
+                            <li>分析大湾区健康科技市场趋势，挖掘商业机会</li>
+                            <li>设计联合解决方案，推动健康科技产品市场化</li>
+                            <li>管理合作伙伴关系，确保长期合作价值</li>
+                        </ul>
+                        
+                        <h3>任职要求</h3>
+                        <ul>
+                            <li>市场营销、商务管理或相关领域本科及以上学历</li>
+                            <li>5年以上商务拓展或合作伙伴管理经验</li>
+                            <li>熟悉健康科技或医疗健康产业</li>
+                            <li>出色的沟通能力和谈判技巧</li>
+                            <li>中英文流利，具备跨文化商务能力</li>
+                        </ul>
+                        
+                        <h3>我们提供的福利</h3>
+                        <ul>
+                            <li>具有竞争力的薪资和绩效奖金</li>
+                            <li>广阔的职业发展空间</li>
+                            <li>与国际知名企业合作的机会</li>
+                            <li>参与全球健康科技活动的机会</li>
+                            <li>全面的福利和健康计划</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=申请市场拓展与合作伙伴经理职位（简体）" class="apply-btn">立即申请</a>
+                    </div>
+                    
+                    <!-- Traditional Chinese -->
+                    <div class="language-content" data-lang="zh-TW">
+                        <h2>職位概述</h2>
+                        <p>我們正在尋找一位充滿激情的市場拓展與合作夥伴經理，負責開發並維護協會生態夥伴，策劃行業活動，並推動健康科技解決方案的市場應用。</p>
+                        
+                        <h3>主要職責</h3>
+                        <ul>
+                            <li>開發並維護協會生態夥伴（藥企、保險、科技公司等）</li>
+                            <li>策劃行業峰會、路演及投融資對接活動</li>
+                            <li>分析大灣區健康科技市場趨勢，挖掘商業機會</li>
+                            <li>設計聯合解決方案，推動健康科技產品市場化</li>
+                            <li>管理合作夥伴關係，確保長期合作價值</li>
+                        </ul>
+                        
+                        <h3>任職要求</h3>
+                        <ul>
+                            <li>市場營銷、商務管理或相關領域本科及以上學歷</li>
+                            <li>5年以上商務拓展或合作夥伴管理經驗</li>
+                            <li>熟悉健康科技或醫療健康產業</li>
+                            <li>出色的溝通能力和談判技巧</li>
+                            <li>中英文流利，具備跨文化商務能力</li>
+                        </ul>
+                        
+                        <h3>我們提供的福利</h3>
+                        <ul>
+                            <li>具有競爭力的薪資和績效獎金</li>
+                            <li>廣闊的職業發展空間</li>
+                            <li>與國際知名企業合作的機會</li>
+                            <li>參與全球健康科技活動的機會</li>
+                            <li>全面的福利和健康計劃</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=申請市場拓展與合作夥伴經理職位（繁體）" class="apply-btn">立即申請</a>
+                    </div>
+                    
+                    <!-- English -->
+                    <div class="language-content" data-lang="en">
+                        <h2>Position Overview</h2>
+                        <p>We are seeking a passionate Business Development & Partnership Manager to develop and maintain ecosystem partners for our association, organize industry events, and promote the market application of health tech solutions.</p>
+                        
+                        <h3>Key Responsibilities</h3>
+                        <ul>
+                            <li>Develop and maintain association ecosystem partners (pharmaceutical companies, insurers, tech firms, etc.)</li>
+                            <li>Organize industry summits, roadshows, and investment matchmaking events</li>
+                            <li>Analyze health tech market trends in the Greater Bay Area and identify business opportunities</li>
+                            <li>Design joint solutions to promote health tech product commercialization</li>
+                            <li>Manage partnership relationships to ensure long-term collaboration value</li>
+                        </ul>
+                        
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Bachelor's degree or above in Marketing, Business Administration or related fields</li>
+                            <li>5+ years of experience in business development or partnership management</li>
+                            <li>Familiarity with health tech or healthcare industry</li>
+                            <li>Excellent communication and negotiation skills</li>
+                            <li>Fluency in both English and Chinese, with cross-cultural business capability</li>
+                        </ul>
+                        
+                        <h3>Benefits We Offer</h3>
+                        <ul>
+                            <li>Competitive salary and performance bonus</li>
+                            <li>Ample career development opportunities</li>
+                            <li>Opportunity to collaborate with international renowned companies</li>
+                            <li>Participation in global health tech events</li>
+                            <li>Comprehensive benefits and wellness program</li>
+                        </ul>
+                        
+                        <a href="mailto:career@hkhia.com?subject=Application for Business Development & Partnership Manager Position" class="apply-btn">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to close the popup
+        function closeJobPopup() {
+            const popups = document.querySelectorAll('.popup-overlay');
+            popups.forEach(popup => {
+                popup.style.display = 'none';
+            });
+            // Notify parent window that popup is closed
+            if (window.opener) {
+                window.opener.postMessage({ action: 'jobPopupClosed' }, '*');
+            }
+        }
+        
+        // Function to switch language tabs
+        function setupLanguageTabs() {
+            const tabs = document.querySelectorAll('.language-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    const container = this.closest('.popup-container');
+                    
+                    // Update active tab
+                    container.querySelectorAll('.language-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Update active content
+                    container.querySelectorAll('.language-content').forEach(content => {
+                        content.classList.remove('active');
+                        if (content.getAttribute('data-lang') === lang) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Function to show the appropriate job popup and set language
+        function showJobPopup(jobId, preferredLang = 'zh-CN') {
+            const popup = document.getElementById(jobId + 'Popup');
+            if (!popup) return;
+            
+            // Hide all popups first
+            document.querySelectorAll('.popup-overlay').forEach(p => {
+                p.style.display = 'none';
+            });
+            
+            // Show the requested popup
+            popup.style.display = 'flex';
+            
+            // Set the preferred language
+            const container = popup.querySelector('.popup-container');
+            const tabs = container.querySelectorAll('.language-tab');
+            const contents = container.querySelectorAll('.language-content');
+            
+            // Update tabs and contents
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-lang') === preferredLang) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            contents.forEach(content => {
+                content.classList.remove('active');
+                if (content.getAttribute('data-lang') === preferredLang) {
+                    content.classList.add('active');
+                }
+            });
+            
+            // Scroll to top of the popup
+            popup.scrollTo(0, 0);
+        }
+        
+        // Initialize language tabs when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setupLanguageTabs();
+            
+            // Check URL parameters for job and language
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('job');
+            const lang = urlParams.get('lang') || 'zh-CN'; // Default to Simplified Chinese
+            
+            if (jobId) {
+                showJobPopup(jobId, lang);
+            }
+            
+            // Listen for messages from parent window
+            window.addEventListener('message', function(event) {
+                if (event.data.action === 'showJobPopup') {
+                    showJobPopup(event.data.jobId, event.data.lang);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
